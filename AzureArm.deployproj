@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>e4277797-df59-40d6-88cb-16f66e6da505</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <Content Include="azuredeploy.json" />
+    <Content Include="azuredeploy.parameters.json" />
+    <None Include="all-nested\DiskArray.json" />
+    <None Include="all-nested\ManagedDiskArray.json" />
+    <None Include="all-nested\template-BuildIIS.json" />
+    <None Include="all-nested\template-BuildSQL-FixedDisks.json" />
+    <None Include="all-nested\template-BuildSQL.json" />
+    <None Include="all-nested\template-BuildSQLILB.json" />
+    <None Include="all-nested\template-BuildwebILB.json" />
+    <None Include="all-nested\template-BuildWin.json" />
+    <None Include="all-nested\template-ConfigureDscPull.json" />
+    <None Include="all-nested\template-DataDisks.json" />
+    <None Include="all-nested\template-FixedDataDisks.json" />
+    <None Include="all-nested\template-MultipleVM-Conf-MD.json" />
+    <None Include="all-nested\template-MultipleVM-ConfDisks.json" />
+    <None Include="all-nested\template-MultipleVM-ManagedDisks.json" />
+    <None Include="all-nested\template-MultipleVM-sqlilb-Conf-MD.json" />
+    <None Include="all-nested\template-MultipleVM-sqlilb-ConfDisks.json" />
+    <None Include="all-nested\template-MultipleVM-sqlilb-ManagedDisks.json" />
+    <None Include="all-nested\template-MultipleVM-sqlilb.json" />
+    <None Include="all-nested\template-MultipleVM-webilb-ManagedDisks.json" />
+    <None Include="all-nested\template-MultipleVM-webilb.json" />
+    <None Include="all-nested\template-MultipleVM.json" />
+    <None Include="all-nested\template-SetStaticIP.json" />
+    <None Include="all-nested\template-SingleVM-Conf-MD.json" />
+    <None Include="all-nested\template-SingleVM-ConfDisks.json" />
+    <None Include="all-nested\template-SingleVM-ManagedDisks.json" />
+    <None Include="all-nested\template-SingleVM.json" />
+    <None Include="all-nested\template-VMSS-ManagedDisks.json" />
+    <None Include="all-nested\VMSSManagedDiskArray.json" />
+    <None Include="all-scripts\Configure-ILB.ps1" />
+    <None Include="all-scripts\Configure-WebILB.ps1" />
+    <None Include="all-scripts\Deploy-SQLServer.ps1" />
+    <None Include="all-scripts\Deploy-SQLServer.ps1.zip" />
+    <None Include="all-scripts\Deploy-WebServer.ps1" />
+    <None Include="all-scripts\Deploy-WebServer.ps1.zip" />
+    <None Include="all-scripts\Deploy-WinServer.ps1" />
+    <None Include="all-scripts\Deploy-WinServer.ps1.zip" />
+    <None Include="all-scripts\DomainJoin.ps1" />
+    <None Include="all-scripts\DomainJoin.ps1.zip" />
+    <None Include="all-scripts\DomainJoinSFC.ps1" />
+    <None Include="all-scripts\DomainJoinSFC.ps1.zip" />
+    <None Include="all-scripts\DomainJoinVMSS.ps1" />
+    <None Include="all-scripts\DomainJoinVMSS.ps1.zip" />
+    <None Include="all-scripts\FormatDataDisk.ps1" />
+    <None Include="all-scripts\FormatDataDisk.ps1.zip" />
+    <None Include="all-scripts\FormatFixedDataDisk.ps1" />
+    <None Include="all-scripts\PostConfiguration.sql" />
+    <None Include="all-scripts\PowerPatching.ps1" />
+    <None Include="all-scripts\SQL-Startup.ps1" />
+    <None Include="all-scripts\supdate_v4.0.exe_1" />
+    <None Include="all-scripts\UpdateLCMforAAPull.zip" />
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Deploy-AzureResourceGroup.ps1" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>
