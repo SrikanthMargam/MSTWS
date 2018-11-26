@@ -605,30 +605,43 @@
       }
     },
     {
-      "ApiVersion": "[variables('apiVersion')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('VMName'),'/joindomain')]",
+      "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('VMName'))]"
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
       ],
-      "tags": {
-        "displayName": "DomainjoinScript"
-      },
       "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "JsonADDomainExtension",
-        "typeHandlerVersion": "1.3",
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.18",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "Name": "[toUpper(parameters('DomainName'))]",
-          "oupath": "[ Parameters('ouPath')]",
-          "User": "[parameters('domainJoinUserName')]",
-          "Restart": "true",
-          "Options": "[variables('domainJoinOptions')]"
+          "WmfVersion": "5.0",
+          "modulesUrl": "[variables('modulesUrl')]",
+          "SasToken": "",
+          "configurationFunction": "DomainJoin.ps1\\DomainJoin",
+          "properties": {
+            "Domain": "[parameters('DomainName')]",
+            "LocalAccount": {
+              "UserName": "[parameters('localAdminUserName')]",
+              "Password": "PrivateSettingsRef:LocalPassword"
+            },
+            "DomainAccount": {
+              "UserName": "[parameters('domainJoinUserName')]",
+              "Password": "PrivateSettingsRef:DomainPassword"
+            },
+            "localAdmins": "[parameters('localAdmins')]",
+            "SQLAdmins": "[parameters('SQLAdmins')]",
+            "OU": "[parameters('ouPath')]"
+          }
         },
-        "protectedsettings": {
-          "DomainPassword": "[parameters('domainJoinPassword')]"
+        "protectedSettings": {
+          "Items": {
+            "LocalPassword": "[parameters('localAdminUserName')]",
+            "DomainPassword": "[parameters('domainJoinPassword')]"
+          }
         }
       }
     },
