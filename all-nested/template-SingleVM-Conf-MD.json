@@ -549,7 +549,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName')]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]",
         "[parameters('vmName')]"
       ],
