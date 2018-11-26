@@ -89,7 +89,7 @@
         }
     },
     "variables": {
-      "BaseURL": "https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/mohussai/",
+      "BaseURL": "https://raw.githubusercontent.com/ajju4u/AzureArm/mohussai/",
       "configurationFunction": "UpdateLCMforAAPull.ps1\\ConfigureLCMforAAPull",
       "modulesUrl": "[concat(variables('BaseURL'),'all-scripts/UpdateLCMforAAPull.zip')]"
     },

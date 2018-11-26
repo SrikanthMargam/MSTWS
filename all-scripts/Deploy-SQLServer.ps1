@@ -18,7 +18,7 @@ Configuration DeploySQLServer
    [parameter(Mandatory=$true)]
    [System.Management.Automation.PSCredential] $SQLAdminAcct,
    [Parameter(Mandatory)]
-   [string] $scriptFolderUrl="https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/develop/all-scripts/"
+   [string] $scriptFolderUrl="https://raw.githubusercontent.com/ajju4u/AzureArm/armtest/all-scripts/"
   )
 
   Node localhost

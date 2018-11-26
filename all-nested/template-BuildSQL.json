@@ -98,9 +98,9 @@
   },
   "variables": {
     
-     "branch": "develop",
-    "scriptsURL": "[concat('https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/',variables('branch'),'/all-scripts/')]",
-    "nestedURL": "[concat('https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/',variables('branch'),'/all-nested/')]",
+     "branch": "armtest",
+    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-scripts/')]",
+    "nestedURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-nested/')]",
 
     "deploySQLServerZip": "Deploy-SQLServer.ps1.zip",
     "configurationFunction": "Deploy-SQLServer.ps1\\DeploySQLServer",

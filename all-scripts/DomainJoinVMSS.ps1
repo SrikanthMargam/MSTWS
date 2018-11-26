@@ -12,7 +12,7 @@ configuration DomainJoin
         [System.Management.Automation.PSCredential] $DomainAccount,
         [string] $LocalAdmins='',
         [string] $SQLAdmins='',
-        [string] $scriptFolderUrl="https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/develop/all-scripts/",
+        [string] $scriptFolderUrl="https://raw.githubusercontent.com/ajju4u/AzureArm/armtest/all-scripts/",
         $Disks
     ) 
     

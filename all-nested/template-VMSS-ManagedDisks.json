@@ -270,9 +270,9 @@
     "apiVersion": "2015-06-15",
     "MSITVersion": "2.1.1",
 
-     "branch": "develop",
-    "scriptsURL": "[concat('https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/',variables('branch'),'/all-scripts/')]",
-    "nestedURL": "[concat('https://raw.githubusercontent.com/SETOGitHub/ECARMVersionUpgrade/',variables('branch'),'/all-nested/')]",
+     "branch": "armtest",
+    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-scripts/')]",
+    "nestedURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-nested/')]",
 
     "DomainJoinzip": "DomainJoinVMSS.ps1.zip",
     "diskarrayTemplate": "VMSSManagedDiskArray.json",

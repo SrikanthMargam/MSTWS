@@ -79,6 +79,29 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <None Include="Scripts\MoveAzureTempDrive.ps1" />
+    <None Include="Scripts\MoveAzureTempDrive.ps1.zip" />
+    <None Include="Scripts\MoveAzureTempDrive\DscResources\MoveAzureTempDrive\MoveAzureTempDrive.psm1" />
+    <None Include="Scripts\MoveAzureTempDrive\DscResources\MoveAzureTempDrive\MoveAzureTempDrive.schema.mof" />
+    <None Include="Scripts\MoveAzureTempDrive\MoveAzureTempDrive.psd1" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xComputer\MSFT_xComputer.psm1" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xComputer\MSFT_xComputer.schema.mof" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\en-us\MSFT_xOfflineDomainJoin.psd1" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\MSFT_xOfflineDomainJoin.psm1" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\MSFT_xOfflineDomainJoin.schema.mof" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xScheduledTask\MSFT_xScheduledTask.psm1" />
+    <None Include="Scripts\xComputerManagement\DSCResources\MSFT_xScheduledTask\MSFT_xScheduledTask.schema.mof" />
+    <None Include="Scripts\xComputerManagement\Examples\Sample_xOfflineDomainJoin.ps1" />
+    <None Include="Scripts\xComputerManagement\Examples\Sample_xScheduledTask.ps1" />
+    <None Include="Scripts\xComputerManagement\LICENSE" />
+    <None Include="Scripts\xComputerManagement\PSGetModuleInfo.xml" />
+    <None Include="Scripts\xComputerManagement\README.md" />
+    <None Include="Scripts\xComputerManagement\Tests\Integration\MSFT_xScheduledTask.Config.ps1" />
+    <None Include="Scripts\xComputerManagement\Tests\Integration\MSFT_xScheduledTask.Integration.Tests.ps1" />
+    <None Include="Scripts\xComputerManagement\Tests\Unit\MSFT_xComputer.Tests.ps1" />
+    <None Include="Scripts\xComputerManagement\Tests\Unit\MSFT_xOfflineDomainJoin.tests.ps1" />
+    <None Include="Scripts\xComputerManagement\Tests\Unit\MSFT_xScheduledTask.Tests.ps1" />
+    <None Include="Scripts\xComputerManagement\xComputerManagement.psd1" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
