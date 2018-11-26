@@ -310,6 +310,18 @@
       "metadata": {
         "description": "The City Workspace key to use to join"
       }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "Auto-generated container in staging storage account to receive post-build staging folder upload"
+      }
+    },
+    "_artifactsLocationSasToken": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Auto-generated token to access _artifactsLocation"
+      }
     }
   },
   "variables": {
@@ -319,16 +331,17 @@
     "branch": "armtest",
     "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-scripts/')]",
     "nestedURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-nested/')]",
-    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/Scripts/')]",
     "availabilitySetName": "[parameters('AvailabilitySet')]",
 
     "DomainJoinzip": "DomainJoin.ps1.zip",
     "formatDiskstemplate": "template-FixedDataDisks.json",
     "SetStaticIP": "template-SetStaticIP.json",
+    "MoveTempDriveZip": "MoveAzureTempDrive.ps1.zip",
 
     "modulesUrl": "[concat(variables('scriptsURL'),variables('DomainJoinzip'))]",
     "FormatDisksUrl": "[concat(variables('nestedURL'), variables('formatDiskstemplate'))]",
     "SetStaticIPUrl": "[concat(variables('nestedURL'),variables('SetStaticIP'))]",
+    "MoveTempDriveUrl": "[concat(variables('scriptsURL'),variables('MoveTempDriveZip'))]",
 
     "vnetSubscriptionid": "[subscription().subscriptionId]",
     "vnetID": "[concat('/subscriptions/',variables('vnetSubscriptionid'),'/resourceGroups/',parameters('vnetResourceGroup'),'/providers/Microsoft.Network/virtualnetworks/',parameters('virtualNetwork'))]",
@@ -374,7 +387,9 @@
         }
       }
     },
-    "DiskSKU": "[variables(concat('SQLPrem','Disk'))]"
+    "DiskSKU": "[variables(concat('SQLPrem','Disk'))]",
+    "MoveTempDriveArchiveFolder": "DSC",
+    "MoveTempDriveArchiveFileName": "MoveTempDrive.zip"
   },
   "resources": [
     {
@@ -539,7 +554,10 @@
             }
           ]
         }
-      }
+      },
+      "resources": [
+
+      ]
     },
     {
       "name": "[concat(variables('nicName'),'','-SetStaticIP')]",
@@ -569,17 +587,28 @@
         }
       }
     },
+
     {
-      "name": "MoveTempDrive",
-      "parameters": {
-        "vmName": {
-          "value": "[parameters('vmName')]"
-        },
-        "assetLocation": {
-          "value": "[variables('scriptsURL')]"
-        },
-        "tempDriveLetter": {
-          "value": "Z"
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'),'/','MoveTempDrive')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.18",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "WmfVersion": "5.0",
+          "ModulesUrl": "[variables('modulesUrl')]",
+          "SasToken": "",
+          "ConfigurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
+          "Properties": {
+            "MoveAzureTempDrive": "Z"
+          }
         }
       }
     },
