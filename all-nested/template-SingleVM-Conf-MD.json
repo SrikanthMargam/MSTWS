@@ -542,10 +542,7 @@
             }
           ]
         }
-      },
-      "resources": [
-
-      ]
+      }
     },
     {
       "name": "[concat(variables('nicName'),'','-SetStaticIP')]",
@@ -578,7 +575,7 @@
 
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'),'/','MoveTempDrive')]",
+      "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'))]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "dependsOn": [
