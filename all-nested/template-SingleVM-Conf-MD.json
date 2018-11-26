@@ -439,7 +439,7 @@
         "ApplicationName": "[parameters('ApplicationName')]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'),'','nic1')]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'),'','-NIC')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -538,7 +538,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'),'','nic1'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'),'','-NIC'))]"
             }
           ]
         }
@@ -549,7 +549,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[concat(parameters('vmName'),'nic1')]",
+        "[concat(variables('nicName'),'','-NIC')]",
         "[parameters('vmName')]"
       ],
       "properties": {
@@ -564,7 +564,7 @@
             "value": "[variables('nicName')]"
           },
           "ipAddress": {
-            "value": "[reference(concat(parameters('vmName'),'nic1')).ipConfigurations[0].properties.privateIPAddress]"
+            "value": "[reference(concat(variables('nicName'),'','-NIC')).ipConfigurations[0].properties.privateIPAddress]"
           },
           "subnetRef": {
             "value": "[variables('subnetRef')]"
