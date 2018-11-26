@@ -336,7 +336,7 @@
     "imageOffer": "[parameters('imageOffer')]",
     "imagePublisher": "[parameters('imagePublisher')]",
     "sku": "[parameters('sku')]",
-    "nicName": "[parameters('vmName')]-NIC",
+    "nicName": "[concat(parameters('vmName'),'-NIC')]",
     "subnetName": "[parameters('subnetName')]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "autologonContent": "[concat('<AutoLogon><Password><Value>',parameters('localAdminPassword'),'</Value></Password><Domain>.</Domain><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>',parameters('localAdminUserName'),'</Username></AutoLogon>')]",
@@ -383,7 +383,7 @@
     {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
-      "ApiVersion": "[variables('apiVersion')]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[resourceGroup().location]",
       "tags": {
         "displayName": "NetworkInterface",
@@ -560,12 +560,11 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-
-          "nicName": {
-            "value": "[variables('nicName')]"
-          },
           "ipAddress": {
             "value": "[reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress]"
+          },
+          "nicName": {
+            "value": "[variables('nicName')]"
           },
           "subnetRef": {
             "value": "[variables('subnetRef')]"
