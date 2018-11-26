@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2018-10-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
@@ -459,7 +459,7 @@
     {
       "name": "[concat(variables('nicName'),copyindex(parameters('nodeNumber')),'','-SetStaticIP')]",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-10-01",
+      "apiVersion": "2015-01-01",
       "dependsOn": [
         "[concat(parameters('vmName'),copyindex(parameters('nodeNumber')),'nic1')]",
         "[concat(parameters('vmName'),copyindex(parameters('nodeNumber')))]"
@@ -532,7 +532,7 @@
       }
     },
     {
-      "apiVersion": "2018-10-01",
+      "apiVersion": "2015-01-01",
       "name": "[concat(parameters('vmName'),copyindex(parameters('nodeNumber')),'-FormatDataDisks')]",
       "type": "Microsoft.Resources/deployments",
       "copy": {
