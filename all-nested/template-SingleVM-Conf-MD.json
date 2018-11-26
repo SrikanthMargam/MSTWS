@@ -571,7 +571,6 @@
     },
     {
       "name": "MoveTempDrive",
-      "contentVersion": "1.0.0.0",
       "parameters": {
         "vmName": {
           "value": "[parameters('vmName')]"
