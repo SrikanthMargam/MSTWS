@@ -324,12 +324,11 @@
     "DomainJoinzip": "DomainJoin.ps1.zip",
     "formatDiskstemplate": "template-FixedDataDisks.json",
     "SetStaticIP": "template-SetStaticIP.json",
-    "MoveTempDriveZip": "MoveAzureTempDrive.ps1.zip",
 
     "modulesUrl": "[concat(variables('scriptsURL'),variables('DomainJoinzip'))]",
     "FormatDisksUrl": "[concat(variables('nestedURL'), variables('formatDiskstemplate'))]",
     "SetStaticIPUrl": "[concat(variables('nestedURL'),variables('SetStaticIP'))]",
-    "MoveTempDriveUrl": "[concat(variables('scriptsURL'),variables('MoveTempDriveZip'))]",
+    "MoveTempDriveUrl": "[concat(variables('nestedURL'),'template-MoveAzureTempDrives.json')]",
 
     "vnetSubscriptionid": "[subscription().subscriptionId]",
     "vnetID": "[concat('/subscriptions/',variables('vnetSubscriptionid'),'/resourceGroups/',parameters('vnetResourceGroup'),'/providers/Microsoft.Network/virtualnetworks/',parameters('virtualNetwork'))]",
@@ -581,30 +580,6 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/MoveAzureTempDrive')]",
-      "apiVersion": "2015-06-15",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-      ],
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.18",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "WmfVersion": "5.0",
-          "ModulesUrl": "[variables('MoveTempDriveUrl')]",
-          "SasToken": "",
-          "ConfigurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
-          "Properties": {
-            "MoveAzureTempDrive": "Z"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'))]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
@@ -669,6 +644,32 @@
           },
           "E_DriveSize": {
             "value": "[parameters('E_DriveSize')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'),variables('vmExtensionName'))]"
+      ]
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "[concat(parameters('vmName'),'-MoveAzureTempDrive')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('MoveTempDriveUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "[concat(parameters('vmName'))]"
+          },
+          "assetLocation": {
+            "value": "[parameters('scriptsURL')]"
+          },
+          "tempDriveLetter": {
+            "value": "Z"
           }
         }
       },

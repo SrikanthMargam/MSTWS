@@ -36,6 +36,7 @@
     <None Include="all-nested\template-ConfigureDscPull.json" />
     <None Include="all-nested\template-DataDisks.json" />
     <None Include="all-nested\template-FixedDataDisks.json" />
+    <None Include="all-nested\template-MoveAzureTempDrives.json" />
     <None Include="all-nested\template-MultipleVM-Conf-MD.json" />
     <None Include="all-nested\template-MultipleVM-ConfDisks.json" />
     <None Include="all-nested\template-MultipleVM-ManagedDisks.json" />
