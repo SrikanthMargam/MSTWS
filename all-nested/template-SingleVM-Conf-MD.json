@@ -336,7 +336,7 @@
     "imageOffer": "[parameters('imageOffer')]",
     "imagePublisher": "[parameters('imagePublisher')]",
     "sku": "[parameters('sku')]",
-    "nicName": "[parameters('vmName')]",
+    "nicName": "[parameters('vmName')]-NIC",
     "subnetName": "[parameters('subnetName')]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "autologonContent": "[concat('<AutoLogon><Password><Value>',parameters('localAdminPassword'),'</Value></Password><Domain>.</Domain><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>',parameters('localAdminUserName'),'</Username></AutoLogon>')]",
@@ -382,7 +382,7 @@
   "resources": [
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'),'','-NIC')]",
+      "name": "[variables('nicName')]",
       "ApiVersion": "[variables('apiVersion')]",
       "location": "[resourceGroup().location]",
       "tags": {
@@ -439,7 +439,7 @@
         "ApplicationName": "[parameters('ApplicationName')]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'),'','-NIC')]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -538,7 +538,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'),'','-NIC'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName')))]"
             }
           ]
         }
@@ -549,7 +549,8 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[concat(variables('nicName'),'','-NIC')]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName')]",
+        "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]",
         "[parameters('vmName')]"
       ],
       "properties": {
@@ -564,7 +565,7 @@
             "value": "[variables('nicName')]"
           },
           "ipAddress": {
-            "value": "[reference(concat(variables('nicName'),'','-NIC')).ipConfigurations[0].properties.privateIPAddress]"
+            "value": "[reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress]"
           },
           "subnetRef": {
             "value": "[variables('subnetRef')]"
