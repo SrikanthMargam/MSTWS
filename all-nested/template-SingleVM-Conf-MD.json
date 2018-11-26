@@ -413,7 +413,15 @@
       "name": "[variables('availabilitySetName')]",
       "location": "[resourceGroup().location]",
       "tags": {
-        "displayName": "AvailabilitySet"
+        "displayName": "AvailabilitySet",
+        "Platform": "[parameters('orgID')]",
+        "Environment": "[parameters('env')]",
+        "Role": "[parameters('appID')]",
+        "Service": "[concat('USTCORE',parameters('orgID'))]",
+        "CostCenter": "UST"
+      },
+      "sku": {
+        "name": "Aligned"
       },
       "properties": {
         "platformFaultDomainCount": "2",
