@@ -67,7 +67,7 @@
   "variables": {
 
      "branch": "armtest",
-    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-scripts/')]",
+    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/AzureArm/all-scripts/')]",
 
     "vmILBExtensionName": "ConfigureWebILB",
     "customILBScriptFileToRun": "Configure-WebILB.ps1",

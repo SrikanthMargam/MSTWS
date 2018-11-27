@@ -13,7 +13,7 @@ configuration DomainJoin
 		[System.Management.Automation.PSCredential] $DomainAccount,
 		[string] $LocalAdmins = '',
 		[string] $SQLAdmins = '',
-		[string] $scriptFolderUrl = "https://raw.githubusercontent.com/ajju4u/AzureArm/armtest/all-scripts/",
+		[string] $scriptFolderUrl = "https://raw.githubusercontent.com/ajju4u/AzureArm/armtest/AzureArm/all-scripts/",
 		[string] $primaryWorkspaceID,
 		[string] $primaryWorkspaceKey,
 		[string] $secondaryWorkspaceID,

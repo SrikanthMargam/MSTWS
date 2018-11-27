@@ -308,8 +308,8 @@
     "MSITVersion": "2.1.2",
 
      "branch": "armtest",
-    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-scripts/')]",
-    "nestedURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/all-nested/')]",
+    "scriptsURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/AzureArm/all-scripts/')]",
+    "nestedURL": "[concat('https://raw.githubusercontent.com/ajju4u/AzureArm/',variables('branch'),'/AzureArm/all-nested/')]",
 
     "availabilitySetName": "[parameters('AvailabilitySet')]",
     "DomainJoinzip": "DomainJoin.ps1.zip",

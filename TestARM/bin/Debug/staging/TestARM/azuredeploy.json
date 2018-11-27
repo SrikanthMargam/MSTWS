@@ -276,9 +276,9 @@
     },
     "vnetResourceGroup": {
       "type": "string",
-      "defaultValue": "ERNetwork-PvtApp",
+      "defaultValue": "HypernetUST-TWS-PROD-RGRG",
       "allowedValues": [
-        "ERNetwork-PvtApp",
+        "HypernetUST-TWS-PROD-RGRG",
         "ERNetwork",
         "ERNetwork-DMZ"
       ],

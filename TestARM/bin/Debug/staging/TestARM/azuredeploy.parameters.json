@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
-      "value": "TWSTESTSQL"
+      "value": "TWSMSITSQL101"
     },
     "localAdminUserName": {
       "value": "twsadmin"
@@ -66,13 +66,13 @@
       "value": "Standard_LRS"
     },
     "virtualNetwork": {
-      "value": "TWSCorpnet-PvtApp-WUS2-VNET-9405"
+      "value": "TWSHYPERNET-UST-TWS-PROD-RG-1"
     },
     "vnetResourceGroup": {
-      "value": "ERNetwork-PvtApp"
+      "value": "HypernetUST-TWS-PROD-RGRG"
     },
     "subnetName": {
-      "value": "Subnet-1"
+      "value": "Subnet1"
     },
     "vmSize": {
       "value": "Standard_DS12_v2"

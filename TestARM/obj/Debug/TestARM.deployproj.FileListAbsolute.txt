@@ -1,1 +1,2 @@
 C:\Users\ajayvel\source\repos\TestARM\TestARM\obj\Debug\TestARM.deployproj.CoreCompileInputs.cache
+C:\Users\ajayvel\source\repos\AzureArm\TestARM\obj\Debug\TestARM.deployproj.CoreCompileInputs.cache
