@@ -1,0 +1,135 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "value": "TWSTESTSQL"
+    },
+    "localAdminUserName": {
+      "value": "twsadmin"
+    },
+    "localAdminPassword": {
+      "value": "TWS@dm1n#007"
+    },
+    "domainJoinUserName": {
+      "value": "ajayvel@phx.gbl"
+    },
+    "domainJoinPassword": {
+      "value": "Ajju_+*02022013"
+    },
+    "SQLServerAccount": {
+      "value": "twsadmin"
+    },
+    "SQLServerPassword": {
+      "value": "TWS@dm1n#007"
+    },
+    "SQLAgentAccount": {
+      "value": "twsadmin"
+    },
+    "SQLAgentPassword": {
+      "value": "TWS@dm1n#007"
+    },
+    "localAdmins": {
+      "value": "twsadmin"
+    },
+    "SQLAdmins": {
+      "value": "ajayvel@phx.gbl"
+    },
+    "CiOwner": {
+      "value": "phx\\rajeshbs"
+    },
+    "CiAnalystGroup": {
+      "value": "Config Analyst: EC"
+    },
+    "appID": {
+      "value": "Common"
+    },
+    "orgID": {
+      "value": "TWS"
+    },
+    "domainName": {
+      "value": "PHX.GBL"
+    },
+    "env": {
+      "value": "Production"
+    },
+    "imagePublisher": {
+      "value": "MicrosoftSQLServer"
+    },
+    "imageOffer": {
+      "value": "SQL2016SP2-WS2016"
+    },
+    "sku": {
+      "value": "Enterprise"
+    },
+    "storageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "virtualNetwork": {
+      "value": "TWSCorpnet-PvtApp-WUS2-VNET-9405"
+    },
+    "vnetResourceGroup": {
+      "value": "ERNetwork-PvtApp"
+    },
+    "subnetName": {
+      "value": "Subnet-1"
+    },
+    "vmSize": {
+      "value": "Standard_DS12_v2"
+    },
+    "H_DriveSize": {
+      "value": 500
+    },
+    "H_DriveCache": {
+      "value": "ReadOnly"
+    },
+    "O_DriveSize": {
+      "value": 200
+    },
+    "O_DriveCache": {
+      "value": "ReadOnly"
+    },
+    "T_DriveSize": {
+      "value": 400
+    },
+    "T_DriveCache": {
+      "value": "ReadOnly"
+    },
+    "E_DriveSize": {
+      "value": 400
+    },
+    "E_DriveCache": {
+      "value": "ReadOnly"
+    },
+    "UserWorkspaceID": {
+      "value": ""
+    },
+    "UserWorkspaceKey": {
+      "value": ""
+    },
+    "federalWorkspaceID": {
+      "value": ""
+    },
+    "federalWorkspaceKey": {
+      "value": ""
+    },
+    "ouPath": {
+      "value": "OU=TWS-Services,OU=Resource,OU=Production,DC=phx,DC=gbl"
+    },
+    "PullServerRegistrationKey": {
+      "value": "tws"
+    },
+    "PullServerRegistrationURI": {
+      "value": "tws"
+    },
+    "ServicePrefix": {
+      "value": "TWS"
+    },
+    "_artifactsLocationSasToken": {
+      "value": "."
+    },
+    "_artifactsLocation": {
+      "value": "."
+    }
+  }
+}
