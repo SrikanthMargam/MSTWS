@@ -1,0 +1,537 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "VMName": {
+      "type": "string",
+      "minLength": 11,
+      "maxLength": 15,
+      "metadata": {
+        "description": "Name for the Virtual Machine in Portal"
+      }
+    },
+   
+	"Disk1-D-Drive": {
+      "type": "int",
+      "defaultValue": 100,
+      "metadata": {
+        "description": "Datadisksize for the Virtual Machine."
+      }
+    },
+	"Disk2-E-Drive": {
+      "type": "int",
+      "defaultValue": 500,
+      "metadata": {
+        "description": "Datadisksize for the Virtual Machine."
+      }
+    },
+	"Disk3-H-Drive": {
+      "type": "int",
+      "defaultValue": 500,
+      "metadata": {
+        "description": "Datadisksize for the Virtual Machine."
+      }
+    },
+	"Disk4-O-Drive": {
+      "type": "int",
+      "defaultValue": 500,
+      "metadata": {
+        "description": "Datadisksize for the Virtual Machine."
+      }
+    },
+	"Disk5-T-Drive": {
+      "type": "int",
+      "defaultValue": 500,
+      "metadata": {
+        "description": "Datadisksize for the Virtual Machine."
+      }
+    },
+    "SizeofOSDiskInGB": {
+      "type": "int",
+      "defaultValue": 64,
+      "metadata": {
+        "description": "Osdisksize for the Virtual Machine."
+      }
+    },
+
+    "AdminUserName": {
+      "type": "string",
+      "metadata": {
+        "description": "VM Admin Username"
+      }
+    },
+    "AdminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "VM Password"
+      }
+    },
+    "DefaultFaultDomainCount": {
+      "type": "int",
+      "defaultValue": 2,
+      "metadata": {
+        "description": "Default fault domains in the availability set"
+      }
+    },
+    "DefaultUpdateDomainCount": {
+      "type": "int",
+      "defaultValue": 2,
+      "metadata": {
+        "description": "Default update domains in the availability set"
+      }
+    },
+    "ManagedDiskStorageType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Premium_LRS",
+		"StandardSSD_LRS",
+        "Standard_LRS"
+      ],
+      "metadata": {
+        "description": "Tier of managed disk storage"
+      }
+    },
+    "VmSize": {
+      "type": "string",
+      "defaultValue": "Standard_DS12_v2",
+      "allowedValues": [
+	"Standard_DS11_v2",
+        "Standard_DS12_v2",
+		"Standard_DS13_v2",
+        "Standard_DS14_v2",
+		"Standard_G4"
+        ],
+      "metadata": {
+        "description": "Size of the VM"
+      }
+    },
+
+    "DomainToJoin": {
+      "type": "string",
+      "metadata": {
+        "description": "The FQDN of the AD domain"
+      },
+      "allowedValues": [
+        "PHX.GBL"
+          ]
+    },
+    "OUPath": {
+      "type": "string",
+      "metadata": {
+        "description": "AD OU Path for the service"
+      }
+    },
+    "DomainUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Username of the account on the domain"
+      }
+    },
+    "DomainPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password of the account on the domain"
+      }
+    },
+    "ServicePrefix": {
+      "type": "string",
+      "maxLength": 6,
+      "metadata": {
+        "description": "service prefix (ie mtchfd)"
+      }
+    },
+
+    "XpertEnvName": {
+      "type": "string",
+	  "defaultValue": "NA",
+       "metadata": {
+        "description": "Name of TWS Xpert Environment"
+      }
+    },
+
+    "XpertRole": {
+      "type": "string",
+	  "defaultValue": "NA",
+      "metadata": {
+        "description": "Xpert Role"
+      }
+    },
+
+    "XpertServiceKey": {
+      "type": "string",
+	  "defaultValue": "NA",
+      "metadata": {
+        "description": "Xpert Service Key"
+      }
+    },
+	
+	"MachineSubnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Machine Subnet Name"
+      }
+    },
+	
+	"VirtualNetworkResourceGroup": {
+      "type": "string",
+       "metadata": {
+        "description": "Resource Group of VNET"
+      }
+    },
+	
+	"VirtualNetworkName": {
+      "type": "string",
+       "metadata": {
+        "description": "VNET Name"
+      }
+    }
+		
+	
+  },
+
+	"variables": {
+	"MachineRole": "SQL",
+    "Apiversion": "2018-10-01",
+    "ComputeApiVersion": "2018-10-01",
+    "NetworkApiVersion": "2018-03-01",
+    "StorageApiVersion": "2018-07-01",
+	"apiVersionVMExtensions": "2015-06-15",
+		"AppNicName": "[toUpper(concat(parameters('vmName'), '-NIC'))]",
+		"domainjoinoptions": "3",
+		"ImageOffer": "SQL2016SP1-WS2016",
+		"ImagePublisher": "MicrosoftSQLServer",
+		"Sku": "Enterprise",
+		"location": "[resourceGroup().location]",
+		"OSDiskName": "[toUpper(concat(parameters('VMName'), '-osdisk'))]",
+		"DataDiskName": "[toUpper(concat(parameters('VMName'), '-data'))]",
+		"AvailabilitySetName": "[toLower(concat(parameters('ServicePrefix'), '-as'))]",
+		"StorageAccountName": "[toLower(concat(parameters('ServicePrefix'), 'storage'))]",
+		"SubnetRef": "[concat(variables('VnetID'), '/subnets/', parameters('MachineSubnetName'))]",
+		"vnetID": "[resourceId(parameters('VirtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]"
+	},
+  "resources": [
+
+    {
+      // Backend NIC attached to VM Instance
+      "name": "[variables('AppNICName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "ApiVersion": "[variables('apiVersion')]",
+	  "tags": {
+        "displayName": "NetworkInterface",
+        "Platform": "TWS",
+        "Environment": "PRODUCTION",
+        "Role": "SQL",
+        "Service": parameters('ServicePrefix'),
+        "CostCenter": "UST"
+      },
+      "dependsOn": [
+
+      ],
+
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('SubnetRef')]"
+              }
+
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      // Storage Account
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('StorageAccountName')]",
+      "apiVersion": "[variables('StorageApiVersion')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "StorageAccount",
+        "Platform": "TWS",
+        "Environment": "PRODUCTION",
+        "Role": "SQL",
+        "Service": parameters('ServicePrefix'),
+        "CostCenter": "UST"
+      },
+      "sku": {
+        "name": "Standard_LRS"
+      }
+    },
+    {
+      // Availabilty  Set
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[variables('AvailabilitySetName')]",
+      "ApiVersion": "[variables('ComputeApiVersion')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "AvailabilitySet",
+        "Platform": "TWS",
+        "Environment": "PRODUCTION",
+        "Role": "SQL",
+        "Service": parameters('ServicePrefix'),
+        "CostCenter": "UST"
+      },
+      "sku": {
+        "name": "Aligned"
+      },
+      "properties": {
+        "platformFaultDomainCount": "[Parameters('DefaultFaultDomainCount')]",
+        "platformUpdateDomainCount": "[Parameters('DefaultUpdateDomainCount')]"
+      }
+    },
+    {
+      "name": "[toUpper(parameters('VmName'))]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "identity": {
+        "type": "systemAssigned"
+      },
+      "location": "[resourceGroup().location]",
+      "ApiVersion": "[variables('ComputeApiVersion')]",
+      "tags": {
+        "displayName": "VirtualMachine",
+        "Platform": "TWS",
+        "Environment": "PRODUCTION",
+        "Role": "[Parameters('ServicePrefix')]",
+        "Service": "USTCORETWS",
+        "CostCenter": "UST"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('VmSize')]"
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('AvailabilitySetName'))]"
+        },
+        "osProfile": {
+          "computerName": "[toUpper(parameters('VMName'))]",
+          "adminUsername": "[parameters('AdminUsername')]",
+          "adminPassword": "[parameters('AdminPassword')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true
+          }
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('http://', variables('StorageAccountName'),'.blob.core.windows.net')]"
+          }
+        },
+
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('ImagePublisher')]",
+            "offer": "[variables('ImageOffer')]",
+            "sku": "[variables('Sku')]",
+            "version": "latest"
+          },
+
+          "osDisk": {
+            "name": "[variables('OSDiskName')]",
+            "osType": "Windows",
+            "diskSizeGB": "[parameters('SizeofOSDiskInGB')]",
+            "createOption": "FromImage",
+            "caching": "ReadWrite",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+          },
+		  
+            "DataDisks": [
+			
+			{
+            "name": "[concat(variables('DatadiskName'),'-D')]",
+			"lun": "0",
+            "diskSizeGB": "[parameters('Disk1-D-Drive')]",
+            "createOption": "Empty",
+            "caching": "ReadOnly",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+            },
+		  
+		    {
+            "name": "[concat(variables('DatadiskName'),'-E')]",
+			"lun": "1",
+            "diskSizeGB": "[parameters('Disk2-E-Drive')]",
+            "createOption": "Empty",
+            "caching": "ReadOnly",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+			},
+			
+		    {
+            "name": "[concat(variables('DatadiskName'),'-H')]",
+			"lun": "2",
+            "diskSizeGB": "[parameters('Disk3-H-Drive')]",
+            "createOption": "Empty",
+            "caching": "ReadOnly",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+			},
+		    {
+            "name": "[concat(variables('DatadiskName'),'-O')]",
+			"lun": "3",
+            "diskSizeGB": "[parameters('Disk4-O-Drive')]",
+            "createOption": "Empty",
+            "caching": "ReadOnly",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+			},
+		    {
+            "name": "[concat(variables('DatadiskName'),'-T')]",
+			"lun": "4",
+            "diskSizeGB": "[parameters('Disk5-T-Drive')]",
+            "createOption": "Empty",
+            "caching": "ReadOnly",
+            "managedDisk": {
+              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            }
+          }
+	  
+         ] 
+        },
+		
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('AppNicName'))]",
+              "properties": {
+                "primary": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "ApiVersion": "[variables('apiVersion')]",
+        "type": "Microsoft.Compute/virtualMachines/extensions",
+        "name": "[concat(parameters('VMName'),'/joindomain')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          "[concat('Microsoft.Compute/virtualMachines/', parameters('VMName'))]"
+        ],
+        "tags": {
+          "displayName": "DomainjoinScript"
+        },
+        "properties": {
+          "publisher": "Microsoft.Compute",
+          "type": "JsonADDomainExtension",
+          "typeHandlerVersion": "1.3",
+          "autoUpgradeMinorVersion": true,
+          "settings": {
+            "Name": "[toUpper(parameters('DomainToJoin'))]",
+            "oupath": "[ Parameters('OUPath')]",
+            "User": "[parameters('DomainUsername')]",
+            "Restart": "true",
+            "Options": "[variables('domainJoinOptions')]"
+          },
+          "protectedsettings": {
+            "Password": "[parameters('domainPassword')]"
+          }
+        }
+      },
+	  
+	  {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/Antimalware')]",
+      "apiVersion": "2017-03-30",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+      ],
+
+      "properties": {
+        "publisher": "Microsoft.Azure.Security",
+        "type": "IaaSAntimalware",
+        "typeHandlerVersion": "1.3",
+        "settings": {
+          "AntimalwareEnabled": "true",
+          "Exclusions": {
+            "Extensions": ".log;.ldf;.mdf;.ndf",
+            "Paths": "D:\\IISlogs;D:\\DatabaseLogs",
+            "Processes": "mssence.svc"
+          },
+
+          "RealtimeProtectionEnabled": "true",
+          "ScheduledScanSettings": {
+            "isEnabled": "true",
+            "scanType": "Quick",
+            "day": "7",
+            "time": "120"
+          }
+        },
+        "protectedSettings": null
+      }
+},
+
+ {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+	  
+      "name": "[concat(parameters('vmName'),'/MoveAzureTempDrive')]",
+      "apiVersion": "[variables('apiVersionVMExtensions')]",
+      "location": "[resourceGroup().location]",      
+    "dependsOn": [
+         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/joindomain')]"
+		],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.20",
+        "autoUpgradeMinorVersion": "true",
+        "settings": {
+          "modulesUrl": "\\\\BAYTWSSQLWAW101.phx.gbl\\ScriptsandExecutables\\MoveAzureTempDrive.ps1.zip",
+          "wmfVersion": "latest",
+          "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
+          "properties": {
+             "TempDriveLetter" :  "Z"
+          }
+        }        
+      }
+    	},
+
+{
+    "apiVersion": "2018-06-01",
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "name": "[concat(parameters('vmName'),'/PostDeployTasks')]",
+    "location": "[resourceGroup().location]",
+   
+    "tags": {
+        "displayName": "PostDeployTasks"
+    },
+	"dependsOn": [
+         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
+		],
+    "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.9",
+		"autoUpgradeMinorVersion": true,
+        "settings": {
+            "fileUris": [
+                "\\\\BAYTWSSQLWAW101\\ScriptsandExecutables\\PostDeploy.ps1"
+            ]
+        },
+        "protectedSettings": {
+            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]"
+              }
+    }
+}
+		
+    ],
+  "outputs": {
+  }
+}
