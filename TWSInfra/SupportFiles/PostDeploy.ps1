@@ -9,6 +9,7 @@ param (
 
 )
 
+$SupportFilesURL="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/SupportFiles.zip"
 
 function Write-FileLog
 {
@@ -22,8 +23,10 @@ Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 
 
 
-Write-FileLog("Copying SupportFiles.Zip...")
-Copy-Item -Path "\\BAYTWSSQLWAW101\ScriptsandExecutables\SupportFiles.zip" -Destination C:\Packages\Plugins -Force
+Write-FileLog("Downloading SupportFiles.Zip...")
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
+
 Sleep 5
 Write-FileLog("Extracting SupportFiles.Zip to C:\Packages\Plugins...")
 Expand-Archive C:\Packages\Plugins\SupportFiles.zip -DestinationPath C:\Packages\Plugins\SupportFiles
