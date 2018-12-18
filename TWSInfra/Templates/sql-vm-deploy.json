@@ -493,7 +493,7 @@
         "typeHandlerVersion": "2.20",
         "autoUpgradeMinorVersion": "true",
         "settings": {
-          "modulesUrl": "\\\\BAYTWSSQLWAW101.phx.gbl\\ScriptsandExecutables\\MoveAzureTempDrive.ps1.zip",
+          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
           "wmfVersion": "latest",
           "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
           "properties": {
@@ -522,7 +522,7 @@
 		"autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                "\\\\BAYTWSSQLWAW101\\ScriptsandExecutables\\PostDeploy.ps1"
+                "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
             ]
         },
         "protectedSettings": {

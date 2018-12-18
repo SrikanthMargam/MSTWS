@@ -1,7 +1,7 @@
 ﻿
 #Template Location
-$sqlTemplate="C:\Users\rajeshbs\Desktop\Hypernet\MultiVM\sql-vm-deploy.json"
-$webTemplate="C:\Users\rajeshbs\Desktop\Hypernet\MultiVM\web-vm-deploy.json"
+$sqlTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates/sql-vm-deploy.json"
+$webTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates/web-vm-deploy.json"
 
 #PARAMETER HELP
 #$Role : "SQL" oR "WEB"
@@ -19,20 +19,24 @@ $webTemplate="C:\Users\rajeshbs\Desktop\Hypernet\MultiVM\web-vm-deploy.json"
 
 # BEGIN PARAMETERS
 $Role="SQL" 
-$DC="DC3" 
-$StackCode="WQW"
+$DC="POC" 
+$StackCode="WAP"
 $StartCounter=101
 $NumberofServers=1
 $CDrive=256 
 $DDrive=128
-$EDrive=1024
-$HDrive=1024
+$EDrive=512
+$HDrive=512
 $ODrive=512
 $TDrive=256 
 $SKU="Standard_DS12_v2" 
 $StorageType="StandardSSD_LRS"
 $DomainAccountName="phx\rajeshbs"
 $DomainPassword = Read-Host -Prompt "Enter your PHX DOMAIN Password" -AsSecureString
+
+
+
+#DO NOT CHANGE THE BELOW VALUES. CONTACT RAJESHBS OR AJAYVEL FOR USING THE BELOW PARAMETERS.
 $ServerName=""
 $OverrideNamingRules=$false
 #END OF PARAMETERS

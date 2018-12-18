@@ -1,4 +1,4 @@
-﻿$VMNameTobeTracked="BY3TWSSQLWPW101,BY3TWSSQLWPW102,BN2TWSSQLWPW101,BN2TWSSQLWPW102,DB5TWSSQLWPW101,DB5TWSSQLWPW102"
+﻿$VMNameTobeTracked="BY2TWSSQLWAP101,BY2TWSSQLWAP102"
 $VMNameTobeTracked=$VMNameTobeTracked.Split(",")
 $RunningFlag=$true
 While ($RunningFlag)
@@ -8,6 +8,7 @@ $AllDeployments=""
 $AllDeployments=Get-AzureRmResourceGroupDeployment -ResourceGroupName "TWS-VM-WUS2-RG" |  where-object {$VMNameTobeTracked -contains $_.DeploymentName.Replace("_Deployment","")}
 $AllDeployments+=Get-AzureRmResourceGroupDeployment -ResourceGroupName 'TWS-VM-EUS2-RG' | where-object {$VMNameTobeTracked -contains $_.DeploymentName.Replace("_Deployment","")}
 $AllDeployments+=Get-AzureRmResourceGroupDeployment -ResourceGroupName 'TWS-VM-NEUR-RG' | where-object {$VMNameTobeTracked -contains $_.DeploymentName.Replace("_Deployment","")}
+$AllDeployments+=Get-AzureRmResourceGroupDeployment -ResourceGroupName 'UST-TWS-PROD-RG' | where-object {$VMNameTobeTracked -contains $_.DeploymentName.Replace("_Deployment","")}
 Clear-Host
 $AllDeployments | Select DeploymentName, ResourceGroupName, ProvisioningState, TimeStamp, Mode | Sort TimeStamp | Format-Table
 
