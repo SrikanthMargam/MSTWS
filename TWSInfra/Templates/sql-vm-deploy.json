@@ -223,7 +223,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "SQL",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "dependsOn": [
@@ -257,7 +257,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "SQL",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "sku": {

@@ -203,7 +203,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "Web",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "dependsOn": [
@@ -237,7 +237,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "Web",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "sku": {
@@ -255,7 +255,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "Web",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "sku": {
@@ -279,7 +279,7 @@
         "Platform": "TWS",
         "Environment": "PRODUCTION",
         "Role": "Web",
-        "Service": parameters('ServicePrefix'),
+        "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
       "dependsOn": [
