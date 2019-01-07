@@ -23,7 +23,7 @@ Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 
 Write-FileLog("Downloading SupportFiles.Zip...")
 RoboCopy "\\BAYTWSSQLWAW101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
-$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
+#$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
 
 Sleep 5
 Write-FileLog("Extracting SupportFiles.Zip to C:\Packages\Plugins...")
