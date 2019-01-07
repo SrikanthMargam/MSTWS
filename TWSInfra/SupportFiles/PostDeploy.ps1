@@ -21,10 +21,8 @@ $logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.txt"
 Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
 
-
-
 Write-FileLog("Downloading SupportFiles.Zip...")
-$WebClient = New-Object System.Net.WebClient
+RoboCopy "\\BAYTWSSQLWAW101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
 $WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
 
 Sleep 5

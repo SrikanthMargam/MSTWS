@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>4a95578b-655e-41bb-85e3-5f75eb789909</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <None Include="ClientTools\SpinVM.ps1" />
+    <None Include="ClientTools\TrackVMDeployments.ps1" />
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <None Include="SupportFiles\AppConfiguration.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive.ps1.zip" />
+    <None Include="SupportFiles\MoveAzureTempDrive\MoveAzureTempDrive.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\MoveAzureTempDrive\DscResources\MoveAzureTempDrive\MoveAzureTempDrive.psm1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\MoveAzureTempDrive\DscResources\MoveAzureTempDrive\MoveAzureTempDrive.schema.mof" />
+    <None Include="SupportFiles\MoveAzureTempDrive\MoveAzureTempDrive\MoveAzureTempDrive.psd1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xComputer\MSFT_xComputer.psm1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xComputer\MSFT_xComputer.schema.mof" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\en-us\MSFT_xOfflineDomainJoin.psd1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\MSFT_xOfflineDomainJoin.psm1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xOfflineDomainJoin\MSFT_xOfflineDomainJoin.schema.mof" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xScheduledTask\MSFT_xScheduledTask.psm1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\DSCResources\MSFT_xScheduledTask\MSFT_xScheduledTask.schema.mof" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Examples\Sample_xOfflineDomainJoin.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Examples\Sample_xScheduledTask.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\LICENSE" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\PSGetModuleInfo.xml" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\README.md" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Tests\Integration\MSFT_xScheduledTask.Config.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Tests\Integration\MSFT_xScheduledTask.Integration.Tests.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Tests\Unit\MSFT_xComputer.Tests.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Tests\Unit\MSFT_xOfflineDomainJoin.tests.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\Tests\Unit\MSFT_xScheduledTask.Tests.ps1" />
+    <None Include="SupportFiles\MoveAzureTempDrive\xComputerManagement\xComputerManagement.psd1" />
+    <None Include="SupportFiles\PostDeploy.ps1" />
+    <None Include="SupportFiles\SQLCommands.sql" />
+    <None Include="SupportFiles\SupportFiles.zip" />
+    <None Include="Templates\sql-vm-deploy.json" />
+    <None Include="Templates\web-vm-deploy.json" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>
