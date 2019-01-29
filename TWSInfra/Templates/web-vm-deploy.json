@@ -180,7 +180,7 @@
 
 	"variables": {
 	
-	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json', parameters('_artifactsLocationSasToken'))],
+	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json', parameters('_artifactsLocationSasToken'))]",
 	"MachineRole": "WEB",
     "Apiversion": "2018-10-01",
     "ComputeApiVersion": "2018-10-01",
