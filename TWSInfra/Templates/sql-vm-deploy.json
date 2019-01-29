@@ -75,7 +75,7 @@
     },
     "DefaultUpdateDomainCount": {
       "type": "int",
-      "defaultValue": 2,
+      "defaultValue": 5,
       "metadata": {
         "description": "Default update domains in the availability set"
       }
@@ -185,12 +185,21 @@
        "metadata": {
         "description": "VNET Name"
       }
-    }
+    },
+	
+	"_artifactsLocation": { 
+19       "type": "string", 
+20       "metadata": { 
+21         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
+22       }, 
+23       "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
+24     }
 		
 	
   },
 
 	"variables": {
+	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/update-nic.json', parameters('_artifactsLocationSasToken'))],
 	"MachineRole": "SQL",
     "Apiversion": "2018-10-01",
     "ComputeApiVersion": "2018-10-01",
@@ -353,7 +362,7 @@
 			"lun": "0",
             "diskSizeGB": "[parameters('Disk1-D-Drive')]",
             "createOption": "Empty",
-            "caching": "ReadOnly",
+            "caching": "None",
             "managedDisk": {
               "storageAccountType": "[parameters('ManagedDiskStorageType')]"
             }
@@ -364,7 +373,7 @@
 			"lun": "1",
             "diskSizeGB": "[parameters('Disk2-E-Drive')]",
             "createOption": "Empty",
-            "caching": "ReadOnly",
+            "caching": "None",
             "managedDisk": {
               "storageAccountType": "[parameters('ManagedDiskStorageType')]"
             }
@@ -385,7 +394,7 @@
 			"lun": "3",
             "diskSizeGB": "[parameters('Disk4-O-Drive')]",
             "createOption": "Empty",
-            "caching": "ReadOnly",
+            "caching": "ReadWrite",
             "managedDisk": {
               "storageAccountType": "[parameters('ManagedDiskStorageType')]"
             }
@@ -395,7 +404,7 @@
 			"lun": "4",
             "diskSizeGB": "[parameters('Disk5-T-Drive')]",
             "createOption": "Empty",
-            "caching": "ReadOnly",
+            "caching": "None",
             "managedDisk": {
               "storageAccountType": "[parameters('ManagedDiskStorageType')]"
             }
@@ -416,6 +425,34 @@
           }
         }
       },
+	  
+	  { 
+127       "type": "Microsoft.Resources/deployments", 
+128       "name": "updateIp", 
+129       "apiVersion": "2017-08-01", 
+130       "dependsOn": [ 
+131         "[variables('AppNicName')]" 
+132       ], 
+133       "properties": { 
+134         "mode": "Incremental", 
+135         "templateLink": { 
+136           "uri": "[variables('updateip_templateUri')]", 
+137           "contentVersion": "1.0.0.0" 
+138         }, 
+139         "parameters": { 
+140           "nicName": { 
+141             "value": "[variables('AppNicName')]" 
+142           }, 
+143           "SubnetRef": { 
+144             "value": "[variables('SubnetRef')]" 
+145           }, 
+146           "privateIp": { 
+147             "value": "[reference(concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))).ipConfigurations[0].properties.privateIPAddress]" 
+148           } 
+149         } 
+150       } 
+151     },
+
       {
         "ApiVersion": "[variables('apiVersion')]",
         "type": "Microsoft.Compute/virtualMachines/extensions",
