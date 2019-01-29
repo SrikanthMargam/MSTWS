@@ -165,8 +165,7 @@
        "metadata": {
         "description": "VNET Name"
       },
-	  
-    },
+	    
 	 "_artifactsLocation": { 
 19       "type": "string", 
 20       "metadata": { 
