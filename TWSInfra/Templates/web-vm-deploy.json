@@ -167,12 +167,12 @@
       },
 	    
 	 "_artifactsLocation": { 
-19       "type": "string", 
-20       "metadata": { 
-21         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
-22       }, 
-23       "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
-24     }
+      "type": "string", 
+      "metadata": { 
+       "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
+      }, 
+      "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
+     }
 	
 	
   },
@@ -377,32 +377,32 @@
       },
 	  
 	  { 
-127       "type": "Microsoft.Resources/deployments", 
-128       "name": "updateIp", 
-129       "apiVersion": "2017-08-01", 
-130       "dependsOn": [ 
-131         "[variables('AppNicName')]" 
-132       ], 
-133       "properties": { 
-134         "mode": "Incremental", 
-135         "templateLink": { 
-136           "uri": "[variables('updateip_templateUri')]", 
-137           "contentVersion": "1.0.0.0" 
-138         }, 
-139         "parameters": { 
-140           "nicName": { 
-141             "value": "[variables('AppNicName')]" 
-142           }, 
-143           "SubnetRef": { 
-144             "value": "[variables('SubnetRef')]" 
-145           }, 
-146           "privateIp": { 
-147             "value": "[reference(concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))).ipConfigurations[0].properties.privateIPAddress]" 
-148           } 
-149         } 
-150       } 
-151     },
-  
+      "type": "Microsoft.Resources/deployments", 
+       "name": "updateIp", 
+       "apiVersion": "2017-08-01", 
+       "dependsOn": [ 
+         "[variables('AppNicName')]" 
+       ], 
+       "properties": { 
+         "mode": "Incremental", 
+         "templateLink": { 
+           "uri": "[variables('updateip_templateUri')]", 
+           "contentVersion": "1.0.0.0" 
+         }, 
+         "parameters": { 
+           "nicName": { 
+             "value": "[variables('AppNicName')]" 
+           }, 
+           "SubnetRef": { 
+             "value": "[variables('SubnetRef')]" 
+           }, 
+           "privateIp": { 
+             "value": "[reference(concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))).ipConfigurations[0].properties.privateIPAddress]" 
+           } 
+         } 
+       } 
+     },
+
 	  
       {
         "ApiVersion": "[variables('apiVersion')]",
