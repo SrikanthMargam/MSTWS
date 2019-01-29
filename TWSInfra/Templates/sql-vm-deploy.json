@@ -428,7 +428,7 @@
 	  
 	  { 
        "type": "Microsoft.Resources/deployments", 
-       "name": "updateIp", 
+       "name": "[toUpper(concat('updateIp-',parameters('vmName')))]" , 
        "apiVersion": "2017-08-01", 
        "dependsOn": [ 
          "[variables('AppNicName')]" 
