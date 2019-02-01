@@ -19,19 +19,19 @@ $webTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Tem
 
 # BEGIN PARAMETERS
 $Role="SQL" 
-$DC="POC" 
-$StackCode="WAP"
+$DC="DC2" 
+$StackCode="WCB"
 $StartCounter=101
-$NumberofServers=1
+$NumberofServers=8
 $CDrive=256 
 $DDrive=128
-$EDrive=512
-$HDrive=512
-$ODrive=512
+$EDrive=2048
+$HDrive=2048
+$ODrive=2048
 $TDrive=256 
 $SKU="Standard_DS12_v2" 
 $StorageType="StandardSSD_LRS"
-$DomainAccountName="phx\rajeshbs"
+$DomainAccountName="phx\ajayvel"
 $DomainPassword = Read-Host -Prompt "Enter your PHX DOMAIN Password" -AsSecureString
 
 
@@ -46,12 +46,12 @@ $OverrideNamingRules=$false
 $Domaintojoin="PHX.GBL"
 $OUPath="OU=TWS-Services,OU=Resource,OU=Production,DC=phx,DC=gbl"
 $LocalAdminName="twsadmin"
-$LocalAdminSecuredPassword = "01000000d08c9ddf0115d1118c7a00c04fc297eb010000005c615ee69dea6b45a4c6d47c41dfe5c50000000002000000000003660000c000000010000000148436e954690b7dbea7d900f78c9f4b0000000004800000a000000010000000484cebe57940ce15323e5b1b75e520f220000000373ab78f30293f8da29923a9eda47351355f2e3f2659ab55c9f61c2342e1c417140000007317556ac035038ac14c55031319b98b27ded63b" | convertto-securestring 
+$LocalAdminSecuredPassword = ConvertTo-SecureString -AsPlainText "TWS@dm1n#007" -Force
 $ServicePrefix=$StackCode + $DC
 
-if ($OverrideNamingRules=$true)
+if ($OverrideNamingRules -eq $true)
 {
-$NumberofServers=1
+    $NumberofServers=1
 }
 
 
@@ -95,30 +95,29 @@ $DCCode="MWH"
 
 for ($ctr=1; $ctr -le $NumberofServers; $ctr++)
 {
-if ($OverrideNamingRules -eq $true)
-{
-$vmname=$ServerName
-}
-else
-{
-$vmname=$DCCode + "TWS" + $Role + $StackCode + $StartCounter
-}
-$StartCounter++
-$DeploymentName=$vmname + "_Deployment"
-
-Switch ($Role)
-{
-"SQL"
-{
-$templatepath=$sqlTemplate
-New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $VMResourceGroup -TemplateFile $templatepath -VMName $vmname -SizeofOSDiskInGB $CDrive -Disk1-D-Drive $DDrive -Disk2-E-Drive $EDrive -Disk3-H-Drive $HDrive -Disk4-O-Drive $ODrive -Disk5-T-Drive $TDrive -ManagedDiskStorageType $StorageType -VmSize $SKU -ServicePrefix $ServicePrefix -AdminUserName $LocalAdminName -AdminPassword $LocalAdminSecuredPassword -OUPath $OUPath -MachineSubnetName $MachineSubnetName -VirtualNetworkResourceGroup $VirtualNetworkResourceGroup -VirtualNetworkName $VirtualNetworkName -Domaintojoin $Domaintojoin  -DomainUsername $DomainAccountName -DomainPassword $DomainPassword -AsJob
-}
-"Web"
-{
-$templatepath=$webTemplate
-New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $VMResourceGroup -TemplateFile $templatepath -VMName $vmname -SizeofOSDiskInGB $CDrive -Disk1-D-Drive $DDrive -Disk2-E-Drive $EDrive -ManagedDiskStorageType $StorageType -VmSize $SKU -ServicePrefix $ServicePrefix -AdminUserName $LocalAdminName -AdminPassword $LocalAdminSecuredPassword -OUPath $OUPath -MachineSubnetName $MachineSubnetName -VirtualNetworkResourceGroup $VirtualNetworkResourceGroup -VirtualNetworkName $VirtualNetworkName -Domaintojoin $Domaintojoin  -DomainUsername $DomainAccountName -DomainPassword $DomainPassword -AsJob
-}
-}
-
+    if ($OverrideNamingRules -eq $true)
+    {
+        $vmname=$ServerName
+    }
+    else
+    {
+        $vmname=$DCCode + "TWS" + $Role + $StackCode + $StartCounter
+    }
+    $StartCounter++
+    $DeploymentName=$vmname + "_Deployment"
+    "Deploying the VM: $vmname"
+    Switch ($Role)
+    {
+        "SQL"
+        {
+            $templatepath=$sqlTemplate
+            New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $VMResourceGroup -TemplateFile $templatepath -VMName $vmname -SizeofOSDiskInGB $CDrive -Disk1-D-Drive $DDrive -Disk2-E-Drive $EDrive -Disk3-H-Drive $HDrive -Disk4-O-Drive $ODrive -Disk5-T-Drive $TDrive -ManagedDiskStorageType $StorageType -VmSize $SKU -ServicePrefix $ServicePrefix -AdminUserName $LocalAdminName -AdminPassword $LocalAdminSecuredPassword -OUPath $OUPath -MachineSubnetName $MachineSubnetName -VirtualNetworkResourceGroup $VirtualNetworkResourceGroup -VirtualNetworkName $VirtualNetworkName -Domaintojoin $Domaintojoin  -DomainUsername $DomainAccountName -DomainPassword $DomainPassword -AsJob
+        }
+        "Web"
+        {
+            $templatepath=$webTemplate
+            New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $VMResourceGroup -TemplateFile $templatepath -VMName $vmname -SizeofOSDiskInGB $CDrive -Disk1-D-Drive $DDrive -Disk2-E-Drive $EDrive -ManagedDiskStorageType $StorageType -VmSize $SKU -ServicePrefix $ServicePrefix -AdminUserName $LocalAdminName -AdminPassword $LocalAdminSecuredPassword -OUPath $OUPath -MachineSubnetName $MachineSubnetName -VirtualNetworkResourceGroup $VirtualNetworkResourceGroup -VirtualNetworkName $VirtualNetworkName -Domaintojoin $Domaintojoin  -DomainUsername $DomainAccountName -DomainPassword $DomainPassword -AsJob
+        }
+    }
 }
 
