@@ -515,27 +515,7 @@
       }
 },
 
-{
-    "type": "Microsoft.Compute/virtualMachines/extensions",
-    "name": "[concat(parameters('vmName'),'/OMSExtension')]",
-    "apiVersion": "2015-06-15",
-    "location": "[resourceGroup().location]",
-    "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-    ],
-    "properties": {
-        "publisher": "Microsoft.EnterpriseCloud.Monitoring",
-        "type": "MicrosoftMonitoringAgent",
-        "typeHandlerVersion": "1.0",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-            "workspaceId": ""
-        },
-        "protectedSettings": {
-            "workspaceKey": ""
-        }
-    }
-},
+
 
  {
       "type": "Microsoft.Compute/virtualMachines/extensions",
