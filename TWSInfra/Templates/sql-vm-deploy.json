@@ -291,8 +291,7 @@
         "name": "Aligned"
       },
       "properties": {
-        "platformFaultDomainCount": "[Parameters('DefaultFaultDomainCount')]",
-        "platformUpdateDomainCount": "[Parameters('DefaultUpdateDomainCount')]"
+        "platformFaultDomainCount": "[Parameters('DefaultFaultDomainCount')]"
       }
     },
     {

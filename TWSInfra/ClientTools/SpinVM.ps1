@@ -19,15 +19,15 @@ $webTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Tem
 
 # BEGIN PARAMETERS
 $Role="SQL" 
-$DC="DC2" 
-$StackCode="WCB"
-$StartCounter=101
+$DC="DC1" 
+$StackCode="WSW"
+$StartCounter=105
 $NumberofServers=4
 $CDrive=256 
 $DDrive=128
-$EDrive=2048
-$HDrive=2048
-$ODrive=2048
+$EDrive=1024
+$HDrive=1024
+$ODrive=512
 $TDrive=256 
 $SKU="Standard_DS12_v2" 
 $StorageType="StandardSSD_LRS"
