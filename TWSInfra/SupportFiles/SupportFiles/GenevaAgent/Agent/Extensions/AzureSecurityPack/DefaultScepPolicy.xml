@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SecurityPolicy
+   xmlns="http://forefront.microsoft.com/FEP/2010/01/PolicyData"
+   Name="SCEP config for IaaS"
+   Version="1"
+   Description="Config policy for Azure IaaS applications. This policy is applicable to Windows 2008 R2, Windows 2012, Windows 2012 R2."
+   IsBuiltIn="0"
+   CreatedBy="Microsoft"
+   LastModifiedBy="Microsoft"
+   >
+  <PolicySection Name="SCEP.ConfigPolicy">
+    <LocalGroupPolicySettings>
+      <!-- Set AM PartnerGUID key for Azure Public IaaS by Default-->
+      <AddKey Name="SOFTWARE\Policies\Microsoft\Microsoft Antimalware" Disabled="false">
+        <AddValue Name="PartnerGUID" Type="REG_SZ" Disabled="false">5FE1BC3B-41BF-4197-8FFE-DA2311848F0A</AddValue>
+      </AddKey>
+
+      <!-- Set AM SpyNet policy key -->
+      <AddKey Name="SOFTWARE\Policies\Microsoft\Microsoft Antimalware\SpyNet" Disabled="false">
+        <AddValue Name="LocalSettingOverrideSpyNetReporting" Type="REG_DWORD" Disabled="false">0</AddValue>
+        <!-- Don't allow UI to override the setting -->
+        <AddValue Name="SpyNetReporting" Type="REG_DWORD" Disabled="false">2</AddValue>
+        <!-- Opt-in for Advanced MAPS telemetry reporting -->
+        <!-- Set AM SpyNet SubmitSamplesConsent key -->
+        <!-- Configures the behavior of samples submission in UI process (not in the Service) when opt-in for Advanced MAPS telemetry is set (SpyNetReporting = 2) -->
+        <AddValue Name="SubmitSamplesConsent" Type="REG_DWORD" Disabled="false">1</AddValue>
+        <!-- 0 - not set, 1 - always submit samples without user consent (UI dialog), 2 - never submit samples -->
+        <!-- Set to send heartbeat telemetry every day -->
+        <AddValue Name="HeartbeatDelayInDays" Type="REG_DWORD" Disabled="false">1</AddValue>
+        <!-- Set heartbeat sampling rate to be 100% which correspond to 10000 -->
+        <AddValue Name="HeartbeatSamplingRate" Type="REG_DWORD" Disabled="false">10000</AddValue>
+      </AddKey>
+
+      <!-- Set AM UILockdown policy key, Iaas Public release is headless (no UI) -->
+      <AddKey Name="SOFTWARE\Policies\Microsoft\Microsoft Antimalware\UX Configuration" Disabled="false">
+        <AddValue Name="UILockdown" Type="REG_DWORD" Disabled="false">1</AddValue>
+      </AddKey>
+
+      <!-- Disable Action Center notifications -->
+      <AddKey Name="SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" Disabled="false">
+        <AddValue Name="HideSCAHealth" Type="REG_DWORD" Disabled="false">1</AddValue>
+      </AddKey>
+
+      <!-- Set Scan policy -->
+      <AddKey Name="SOFTWARE\Policies\Microsoft\Microsoft Antimalware\Scan" Disabled="false">
+        <!-- Disable daily/weekly scan  -->
+        <AddValue Name="ScheduleDay" Type="REG_DWORD" Disabled="false">8</AddValue>
+        <!-- Allow WMI to change ScheduleDay setting  -->
+        <AddValue Name="LocalSettingOverrideScheduleDay" Type="REG_DWORD" Disabled="false">1</AddValue>
+        <!-- Set AvgCPULoadFactor to 20%  -->
+        <AddValue Name="AvgCPULoadFactor" Type="REG_DWORD" Disabled="false">20</AddValue>
+        <!-- Allow WMI to change AvgCPULoadFactor setting -->
+        <AddValue Name="LocalSettingOverrideAvgCPULoadFactor" Type="REG_DWORD" Disabled="false">1</AddValue>
+      </AddKey>
+    </LocalGroupPolicySettings>
+  </PolicySection>
+</SecurityPolicy>

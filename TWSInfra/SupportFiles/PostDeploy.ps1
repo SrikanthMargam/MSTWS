@@ -9,7 +9,7 @@ param (
 
 )
 
-$SupportFilesURL="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/SupportFiles.zip"
+$SupportFilesURL="https://vmext.blob.core.windows.net/templates/SupportFiles/SupportFiles.zip?st=2019-03-13T06%3A59%3A00Z&se=2019-03-14T06%3A59%3A00Z&sp=r&sv=2016-05-31&sr=b&sig=iwhoVcrjA6ePJpzvOP8fjgSMFRBxLMpWIVpypKG0zBs%3D"
 
 function Write-FileLog
 {
@@ -22,8 +22,8 @@ Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
 
 Write-FileLog("Downloading SupportFiles.Zip...")
-RoboCopy "\\BAYTWSSQLWAW101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
-#$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
+#RoboCopy "\\BAYTWSSQLWAW101\ScriptsandExecutables" C:\Packages\Plugins\SupportFiles.zip /XN
+$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
 
 Sleep 5
 Write-FileLog("Extracting SupportFiles.Zip to C:\Packages\Plugins...")

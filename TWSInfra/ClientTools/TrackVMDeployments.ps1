@@ -1,4 +1,4 @@
-﻿$VMNameTobeTracked="BY3TWSSQLWSW105,BY3TWSSQLWSW106,BY3TWSSQLWSW107,BY3TWSSQLWSW108"
+﻿$VMNameTobeTracked="MWHTWSWebSRS102"
 $VMNameTobeTracked=$VMNameTobeTracked.Split(",")
 $RunningFlag=$true
 While ($RunningFlag)
