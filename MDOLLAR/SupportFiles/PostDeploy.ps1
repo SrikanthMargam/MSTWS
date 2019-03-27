@@ -9,7 +9,7 @@ param (
 
 )
 
-$SupportFilesURL="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/SupportFiles.zip"
+$SupportFilesURL="https://raw.githubusercontent.com/MSTWS/TWSArm/master/MDOLLAR/SupportFiles/SupportFiles.zip"
 
 function Write-FileLog
 {
@@ -20,7 +20,7 @@ param
 $logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.txt"
 Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
-
+$WebClient = New-Object System.Net.WebClient
 Write-FileLog("Downloading SupportFiles.Zip...")
 #RoboCopy "\\BAYTWSSQLWAW101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
 $WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
