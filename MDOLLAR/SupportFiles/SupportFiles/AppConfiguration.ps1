@@ -33,7 +33,7 @@ try
 Write-FileLog -message "Setting up Antivirus Software"
 $ExePath = "C:\Packages\Plugins\SupportFiles\SystemCenter\SCEPInstall.exe"
 #$ExePath = "C:\Test\SCEPInstall.exe"
-& $ExePath  /q /s
+& $ExePath  /s /q /NoSigsUpdateAtInitialExp /policy %~dp0EPAMPolicy2.xml
 Write-FileLog -message "Completed Antivirus Installation"
 }
 Catch [Exception]
@@ -124,7 +124,7 @@ Catch [Exception]
     $ErrorMessage = $_.Exception.Message
     $FailedItem = $_.Exception.ItemName
     Write-Host "Error Occured on Xpert Installation Method : $ErrorMessage - $FailedItem"
-    Write-FileLog -message "Error Occured on Install-Antivirus Method : $ErrorMessage - $FailedItem"
+    Write-FileLog -message "Error Occured on Install-XpertAgent Method : $ErrorMessage - $FailedItem"
     Break
 
 }
@@ -212,8 +212,8 @@ Catch [Exception]
 {
     $ErrorMessage = $_.Exception.Message
     $FailedItem = $_.Exception.ItemName
-    Write-Host "Error Occured on Install-Antivirus Method : $ErrorMessage - $FailedItem"
-    Write-FileLog -message "Error Occured on Install-Antivirus Method : $ErrorMessage - $FailedItem"
+    Write-Host "Error Occured on Disk Configuration Method : $ErrorMessage - $FailedItem"
+    Write-FileLog -message "Error Occured on Disk Configuration Method : $ErrorMessage - $FailedItem"
     Break
 
 }
@@ -241,14 +241,6 @@ Write-FileLog -message "-----End-Set-Timezone------"
 Write-FileLog -message ""
 }
 
-Function Set-TimezonetoPST
-{
-Write-FileLog -message "-----Begin-Set-Timezone------"
-Write-FileLog -message "Updating Server Timezone to PST"
-Set-TimeZone -Name "Pacific Standard Time"
-Write-FileLog -message "-----End-Set-Timezone------"
-Write-FileLog -message ""
-}
 $Logininfo="Executing as " + $env:UserDomain + "\" + $env:UserName + " on " + $env:ComputerName
 Write-Host $Logininfo
 Write-FileLog -message $Logininfo
