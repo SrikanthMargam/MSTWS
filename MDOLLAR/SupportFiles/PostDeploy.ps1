@@ -40,7 +40,8 @@ $MySecureCreds = New-Object -TypeName System.Management.Automation.PSCredential 
 
 Write-FileLog("Calling AppConfiguration.ps1...")
 #Invoke-Command -ComputerName $env:COMPUTERNAME -Credential $MySecureCreds -FilePath 'C:\Packages\Plugins\SUpportFiles\AppConfiguration.ps1' -ArgumentList $Role,$xpertenvName,$xpertRole,$xpertServiceKey
-Invoke-Command -ComputerName $env:COMPUTERNAME -FilePath 'C:\Packages\Plugins\SUpportFiles\AppConfiguration.ps1' -ArgumentList $Role,$xpertenvName,$xpertRole,$xpertServiceKey
+#Invoke-Command -ComputerName $env:COMPUTERNAME -FilePath 'C:\Packages\Plugins\SUpportFiles\AppConfiguration.ps1' -ArgumentList $Role,$xpertenvName,$xpertRole,$xpertServiceKey
+&'C:\Packages\Plugins\SUpportFiles\AppConfiguration.ps1' -ArgumentList SQL,TESTENVNAME,TESTROLE,TESTSERVICEKEY
 $Logininfo="Executing as " + $env:UserDomain + "\" + $env:UserName + " on " + $env:ComputerName
 Write-Host $Logininfo
 Write-FileLog -message $Logininfo
