@@ -51,6 +51,19 @@ function InstallXpertAgent
 try
 {
 Write-FileLog -message "Installing xpert"
+If (!(Test-Path E:))
+{
+Write-FileLog -message "For some weired reason E:\ not present..."
+$Logininfo="Executing as " + $env:UserDomain + "\" + $env:UserName + " on " + $env:ComputerName
+Write-FileLog -message $Logininfo
+Write-FileLog -message "Listing all Drives"
+$drives=gdr -PSProvider 'FileSystem'
+foreach ($drive in $drives)
+{
+Write-FileLog -message $drive.Name
+}
+
+}
 $scriptPath = "C:\Packages\Plugins\SupportFiles\InstallNonAPXpertAgent"
 $DestinationPath="E:\XpertAgent"
 $zipPAth=$ScriptPath + "\NonAPXpertBinaries.zip"
@@ -243,11 +256,14 @@ Write-FileLog -message ""
 
 Function PostDeployTasks
 {
-If (Test-Path D:)
+If ((Test-Path D:) -and !(Test-Path Z:))
 {
+Write-FileLog -message "Temp Storage D:\ Still exist. Renaming to Z:"
 Get-Partition -DriveLetter "D" | Set-Partition -NewDriveLetter "Z"
+Write-FileLog -message "Setting up Page file on Z:\ with Silent Error Action to continue"
 Set-WMIInstance -Class Win32_PageFileSetting -Arguments @{ Name = "Z:\pagefile.sys"; MaximumSize = 0; } -ErrorAction SilentlyContinue
 DiskConfiguration
+sleep 30
 InstallXpertAgent
 Install-Antivirus
 Shutdown /r /f /t 0
@@ -255,6 +271,7 @@ Shutdown /r /f /t 0
 else
 {
 DiskConfiguration
+sleep 30
 InstallXpertAgent
 Install-Antivirus
 }
