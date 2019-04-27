@@ -241,10 +241,29 @@ Write-FileLog -message "-----End-Set-Timezone------"
 Write-FileLog -message ""
 }
 
+Function PostDeployTasks
+{
+If (Test-Path D:)
+{
+Get-Partition -DriveLetter "D" | Set-Partition -NewDriveLetter "Z"
+Set-WMIInstance -Class Win32_PageFileSetting -Arguments @{ Name = "Z:\pagefile.sys"; MaximumSize = 0; } -ErrorAction SilentlyContinue
+DiskConfiguration
+InstallXpertAgent
+Install-Antivirus
+Shutdown /r /f /t 0
+}
+else
+{
+DiskConfiguration
+InstallXpertAgent
+Install-Antivirus
+}
+}
+
+
+
 $Logininfo="Executing as " + $env:UserDomain + "\" + $env:UserName + " on " + $env:ComputerName
 Write-Host $Logininfo
 Write-FileLog -message $Logininfo
 
-DiskConfiguration
-InstallXpertAgent
-Install-Antivirus
+PostDeployTasks
