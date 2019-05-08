@@ -27,13 +27,21 @@ GO
 --Login Creation
 
 If not Exists (select name from master.dbo.syslogins 
-   where name = 'phx\UST-CORE-TWS' and dbname = 'master')
+   where name = 'phx\JIT-UST-CORE-TWS' and dbname = 'master')
 	Begin
-CREATE LOGIN [phx\UST-CORE-TWS] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english]
+CREATE LOGIN [phx\JIT-UST-CORE-TWS] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english]
 end
 
-ALTER SERVER ROLE [sysadmin] ADD MEMBER [phx\UST-CORE-TWS]
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [phx\JIT-UST-CORE-TWS]
 GO
+
+--Login Creation
+
+If not Exists (select name from master.dbo.syslogins 
+   where name = 'phx\gMSATWSWeb$' and dbname = 'master')
+	Begin
+CREATE LOGIN [phx\gMSATWSWeb$] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english]
+end
 
 
 

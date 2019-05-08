@@ -192,14 +192,14 @@
        "metadata": { 
          "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
        }, 
-       "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
+       "defaultValue": "https://vmext.file.core.windows.net/templates" 
      }
 		
 	
   },
 
 	"variables": {
-	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json')]",
+	"updateip_templateUri": "https://vmext.file.core.windows.net/templates/Templates/nested/Update_Nic.json?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:03:42Z&st=2019-03-14T16:03:42Z&spr=https&sig=hlq%2Frjk0lMwrNiT2luVZIxQNzqVsAd3y6xwvEJSOB8I%3D",
 	"MachineRole": "SQL",
     "Apiversion": "2018-10-01",
     "ComputeApiVersion": "2018-10-01",
@@ -531,7 +531,7 @@
         "typeHandlerVersion": "2.20",
         "autoUpgradeMinorVersion": "true",
         "settings": {
-          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
+          "modulesUrl": "https://vmext.file.core.windows.net/templates/SupportFiles/MoveAzureTempDrive.ps1.zip?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:03:42Z&st=2019-03-14T16:03:42Z&spr=https&sig=hlq%2Frjk0lMwrNiT2luVZIxQNzqVsAd3y6xwvEJSOB8I%3D",
           "wmfVersion": "latest",
           "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
           "properties": {
@@ -560,7 +560,7 @@
 		"autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
+                "https://vmext.file.core.windows.net/templates/SupportFiles/PostDeploy.ps1?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:03:42Z&st=2019-03-14T16:03:42Z&spr=https&sig=hlq%2Frjk0lMwrNiT2luVZIxQNzqVsAd3y6xwvEJSOB8I%3D"
             ]
         },
         "protectedSettings": {

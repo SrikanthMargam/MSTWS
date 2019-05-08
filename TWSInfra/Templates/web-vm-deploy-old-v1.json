@@ -180,7 +180,7 @@
 
 	"variables": {
 	
-	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json')]",
+	"updateip_templateUri": "https://vmext.blob.core.windows.net/templates/Templates/nested/Update_Nic.json?sp=r&st=2019-03-13T14:59:56Z&se=2019-12-31T18:29:59Z&spr=https&sv=2018-03-28&sig=VAGO4ZTodeUPDDNandFk5FBaA8HbjansiguK81zevqM%3D&sr=b",
 	"MachineRole": "WEB",
     "Apiversion": "2018-10-01",
     "ComputeApiVersion": "2018-10-01",
@@ -483,7 +483,7 @@
         "typeHandlerVersion": "2.20",
         "autoUpgradeMinorVersion": "true",
         "settings": {
-          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
+          "modulesUrl": "https://vmext.blob.core.windows.net/templates/SupportFiles/MoveAzureTempDrive.ps1.zip?sp=r&st=2019-03-13T09:10:37Z&se=2019-12-31T18:29:59Z&spr=https&sv=2018-03-28&sig=8EyF1OjM74hPb9xfFtRr62ZacDeJ%2FoSaAi3MYFw6jE8%3D&sr=b",
           "wmfVersion": "latest",
           "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
           "properties": {
