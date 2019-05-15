@@ -1,7 +1,7 @@
 ﻿
 #Template Location
-$sqlTemplate="https://vmext.blob.core.windows.net/templates/Templates/sql-vm-deploy.json?sp=r&st=2019-03-13T08:02:18Z&se=2019-12-31T18:29:59Z&spr=https&sv=2018-03-28&sig=qygEr5lP8cndu%2F3N3r20klru9hel8cCqu%2F5NRhUcKHA%3D&sr=b"
-$webTemplate="https://vmext.blob.core.windows.net/templates/Templates/web-vm-deploy-old-v1.json?sp=r&st=2019-03-13T10:18:46Z&se=2019-12-31T18:29:59Z&spr=https&sv=2018-03-28&sig=s1PLk%2F9x96AMY5NfeflsU63i8oIkL3lK8O4DLNSt9mw%3D&sr=b"
+$sqlTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates/sql-vm-deploy.json"
+$webTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates/web-vm-deploy.json"
 #$webTemplate="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates/web-vm-deploy.json"
 
 #PARAMETER HELP
@@ -23,23 +23,22 @@ $Role="WEB"
 $SubRole="WEB" 
 $DC="POC" 
 $StackCode="SRS"
-$StartCounter=401
+$StartCounter=302
 $NumberofServers=1
 $CDrive=256
 $DDrive=128
-$EDrive=1024
-
-#MENTION ONLY IF SQL SERVERS ELSE IGNORE
-$HDrive=1024
-$ODrive=256
-$TDrive=256 
-
-$SKU="Standard_DS13_v2" 
+$EDrive=512
+$SKU="Standard_DS12_v2" 
 $StorageType="Standard_LRS"
 $DomainAccountName="phx\rajeshbs"
 $DomainPassword = Read-Host -Prompt "Enter your DOMAIN Password for $DomainAccountName" -AsSecureString
 
 
+
+#MENTION ONLY IF SQL SERVERS ELSE IGNORE
+$HDrive=1024
+$ODrive=256
+$TDrive=256 
 
 #DO NOT CHANGE THE BELOW VALUES. CONTACT RAJESHBS OR AJAYVEL FOR USING THE BELOW PARAMETERS.
 $ServerName="BN2TWSFILOCO101"
@@ -65,8 +64,8 @@ Switch ($DC)
 "DC0" 
 {
 #BAY DC
-$XpertTWSEnvName="WindowsStore-Prod-BY2" #If Xpert Install these variable need to be paramterised.
-$xpertservicekey="D156BF15F5C9CBC9819BF1CA10B2F75C96FD96B2D26A65FF1E6D3B2914F6993681608A0493381E3980640EB2C5F4168F817FD0EE796170E7652105B6311BB07D"
+$XpertTWSEnvName="WindowsStore-Prod-WestUS2" #If Xpert Install these variable need to be paramterised.
+$xpertservicekey="1EE9AE3EF56E8B56EB3E997894AE341B0922CC37D75A8762E6F36D1922EC51EFF6632B0AB59549B9839CF34351FB81CC32396D0987C0C3A78C306E12A71D3D61"
 
 $VirtualNetworkName="TWS-VNET-WUS-PROD"
 $VirtualNetworkResourceGroup="Hypernet-WUS-RG" 
@@ -77,9 +76,9 @@ $DCCode="BA3"
 }
 "DC1" 
 {
-#BAY DC
-$XpertTWSEnvName="WindowsStore-Prod-BY2" #If Xpert Install these variable need to be paramterised.
-$xpertservicekey="D156BF15F5C9CBC9819BF1CA10B2F75C96FD96B2D26A65FF1E6D3B2914F6993681608A0493381E3980640EB2C5F4168F817FD0EE796170E7652105B6311BB07D"
+#West US2 DC
+$XpertTWSEnvName="WindowsStore-Prod-WestUS2" #If Xpert Install these variable need to be paramterised.
+$xpertservicekey="1EE9AE3EF56E8B56EB3E997894AE341B0922CC37D75A8762E6F36D1922EC51EFF6632B0AB59549B9839CF34351FB81CC32396D0987C0C3A78C306E12A71D3D61"
 
 $VirtualNetworkName="TWS-VNET-WUS2-PROD"
 $VirtualNetworkResourceGroup="Hypernet-WUS2-RG" 
@@ -90,9 +89,9 @@ $DCCode="BY3"
 "DC2" 
 {
 
-#BN1 DC
-$XpertTWSEnvName="WindowsStore-Prod-BN1"
-$xpertservicekey="EFE0145BE36396EEC5B7D9975CD46F8B1A4B577A7BE54BD3B4F209350A11057A0C545387E2875AF65A9BC5F1883FAF1FC5D8CF3EA211D700D820786526BDF207"
+#East US2 DC
+$XpertTWSEnvName="WindowsStore-Prod-EastUS2"
+$xpertservicekey="1B90F2CF04D7290AB8C7C34C8B521988CB1568659C9E9D57C925E354CE96906DC19DF07D09C828B01695EE6FCA4C07AD59EB6504B90345CA0F93276A0D903DD6"
  
 $VirtualNetworkName="TWS-VNET-EUS2-PROD"
 $VirtualNetworkResourceGroup="Hypernet-EUS2-RG"
@@ -103,9 +102,9 @@ $DCCode="BN2"
 
 "DC3" 
 { 
-#DB3 DC
-$XpertTWSEnvName="WindowsStore-Prod-DB3"
-$xpertservicekey="8C3C556776EF51301B586C66B3B7B190A68C0CAF9294D015EFF3304FF042F22AA0380AE0E36368E24B0BEF2D366B8F8517EF82A59A5974DE1A0E3086137D587C"
+#North Euprope DC
+$XpertTWSEnvName="WindowsStore-Prod-NorthEurope"
+$xpertservicekey="B3BB776261E4B53997C2E7EF5B3154FB364C544A8640DEACB1C8A37F111E5D321344B989B879CD5EE448943306F50D60E1313EFDC14CC7347BC24AB344F94799"
 
 $VirtualNetworkName="TWS-VNET-NEUR-PROD"
 $VirtualNetworkResourceGroup="Hypernet-NEUR-RG"
@@ -116,8 +115,8 @@ $DCCode="DB5"
 "POC" 
 { 
 #BAY DC
-$XpertTWSEnvName="WindowsStore-Prod-BY2" #If Xpert Install these variable need to be paramterised.
-$xpertservicekey="D156BF15F5C9CBC9819BF1CA10B2F75C96FD96B2D26A65FF1E6D3B2914F6993681608A0493381E3980640EB2C5F4168F817FD0EE796170E7652105B6311BB07D"
+$XpertTWSEnvName="WindowsStore-Prod-WestUS2" #If Xpert Install these variable need to be paramterised.
+$xpertservicekey="1EE9AE3EF56E8B56EB3E997894AE341B0922CC37D75A8762E6F36D1922EC51EFF6632B0AB59549B9839CF34351FB81CC32396D0987C0C3A78C306E12A71D3D61"
 
 $VirtualNetworkName="TWSHYPERNET-WUS2-1"
 $VirtualNetworkResourceGroup="HypernetWUS2RG"
@@ -154,6 +153,10 @@ $XpertRoleName="ComTransactionLicenseStack"
 {
 $XpertRoleName="ConfigStackPrimary"
 }
+"OCO"
+{
+$XpertRoleName="ContentOrigin"
+}
 "WSW"
 {
 $XpertRoleName="DataPresentationStack"
@@ -172,10 +175,14 @@ $XpertRoleName="IdentityCatalogConsumerStack"
 $XpertRoleName="LPS"
 }
 
-
 "WCW"
 {
 $XpertRoleName="PipelineStack"
+}
+
+"DFP"
+{
+$XpertRoleName="DevPortalFile"
 }
 
 "ACP"
@@ -209,6 +216,11 @@ $XpertRoleName="RemoteSigningFrontEndWeb"
 $XpertRoleName="ServicesAppFabricCache"
 }
 
+"AIS"
+{
+$XpertRoleName="ServicesAppFabricCache"
+}
+
 "SMS"
 {
 $XpertRoleName="ServicesFESQLPipelinePrincipal"
@@ -219,13 +231,37 @@ $XpertRoleName="ServicesFESQLPipelinePrincipal"
 $XpertRoleName="ServicesFrontEndWeb"
 }
 
+"PAT"
+{
+$XpertRoleName="PatchingandTools"
+}
+
+"WAP"
+{
+$XpertRoleName="PortalAuditStack"
+}
+
+"GFB"
+{
+$XpertRoleName="GeneralPurposeStorage"
+}
+
+"UTL"
+{
+$XpertRoleName="PatchingandTools"
+}
+
 default
 {
-$XpertRoleName="NonAquaman"
+$XpertRoleName="UCProdServer"
 }
 
 }
 
+if ($DC -eq "POC")
+{
+$XpertRoleName="POCMachines"
+}
 
 for ($ctr=1; $ctr -le $NumberofServers; $ctr++)
 {
