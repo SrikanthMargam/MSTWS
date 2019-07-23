@@ -93,7 +93,9 @@
         "description": "The FQDN of the AD domain"
       },
       "allowedValues": [
-        "PHX.GBL"
+        "PHX.GBL",
+        "PME.GBL",
+        "POE.GBL"
           ]
     },
     "OUPath": {
