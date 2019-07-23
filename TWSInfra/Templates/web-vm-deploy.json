@@ -65,7 +65,7 @@
       "defaultValue": "Standard_LRS",
       "allowedValues": [
         "Premium_LRS",
-		"StandardSSD_LRS",
+		    "StandardSSD_LRS",
         "Standard_LRS"
       ],
       "metadata": {
@@ -76,11 +76,11 @@
       "type": "string",
       "defaultValue": "Standard_DS12_v2",
       "allowedValues": [
-	"Standard_DS11_v2",
+	      "Standard_DS11_v2",
         "Standard_DS12_v2",
-		"Standard_DS13_v2",
+		    "Standard_DS13_v2",
         "Standard_DS14_v2",
-		"Standard_G4"
+		    "Standard_G4"
         ],
       "metadata": {
         "description": "Size of the VM"
@@ -94,8 +94,8 @@
       },
       "allowedValues": [
         "PHX.GBL",
-        "PME.GBL",
-        "POE.GBL"
+        "xpme.gbl.msidentity.com",
+        "xpoe.gbl.msidentity.com"
           ]
     },
     "OUPath": {
