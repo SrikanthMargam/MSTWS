@@ -94,6 +94,7 @@
       },
       "allowedValues": [
         "PHX.GBL",
+        "xpme.gbl.msidentity.com",
         "xpoe.gbl.msidentity.com"
           ]
     },
@@ -430,7 +431,7 @@
             "Options": "[variables('domainJoinOptions')]"
           },
           "protectedsettings": {
-            "Password": "[parameters('DomainPassword')]"
+            "Password": "[parameters('domainPassword')]"
           }
         }
       },

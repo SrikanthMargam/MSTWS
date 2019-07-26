@@ -30,7 +30,7 @@ $DDrive = 128
 $EDrive = 512
 $SKU = "Standard_DS12_v2" 
 $StorageType = "Standard_LRS"
-$DomainAccountName = "ajayvel@xpme.gbl.msidentity.com"
+$DomainAccountName = "pme\ajayvel"
 $DomainPassword = Read-Host -Prompt "Enter your DOMAIN Password for $DomainAccountName" -AsSecureString
 
 #MENTION ONLY IF SQL SERVERS ELSE IGNORE
@@ -45,8 +45,8 @@ $OverrideNamingRules = $false
 
 
 #AUTOGENERATION 
-$Domaintojoin = "xpoe.gbl.msidentity.com"
-$OUPath = "OU=TWS,DC=xpoe,DC=gbl,DC=msidentity,DC=com"
+$Domaintojoin = "PME.GBL"
+$OUPath = "OU=TWS,DC=xpme,DC=gbl,DC=msidentity,DC=com"
 $LocalAdminName = "twsadmin"
 $LocalAdminSecuredPassword = ConvertTo-SecureString -AsPlainText "TWS@dm1n#007" -Force
 $ServicePrefix = $StackCode + $DC
