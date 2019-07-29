@@ -1,6 +1,6 @@
 ﻿{
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
     "VMName": {
       "type": "string",
@@ -10,22 +10,20 @@
         "description": "Name for the Virtual Machine in Portal"
       }
     },
-   
-	"Disk1-D-Drive": {
+    "Disk1-D-Drive": {
       "type": "int",
       "defaultValue": 100,
       "metadata": {
         "description": "Datadisksize for the Virtual Machine."
       }
     },
-	"Disk2-E-Drive": {
+    "Disk2-E-Drive": {
       "type": "int",
       "defaultValue": 500,
       "metadata": {
         "description": "Datadisksize for the Virtual Machine."
       }
     },
-	
     "SizeofOSDiskInGB": {
       "type": "int",
       "defaultValue": 64,
@@ -33,7 +31,6 @@
         "description": "Osdisksize for the Virtual Machine."
       }
     },
-
     "AdminUserName": {
       "type": "string",
       "metadata": {
@@ -65,7 +62,7 @@
       "defaultValue": "Standard_LRS",
       "allowedValues": [
         "Premium_LRS",
-		"StandardSSD_LRS",
+        "StandardSSD_LRS",
         "Standard_LRS"
       ],
       "metadata": {
@@ -76,25 +73,25 @@
       "type": "string",
       "defaultValue": "Standard_DS12_v2",
       "allowedValues": [
-	"Standard_DS11_v2",
+        "Standard_DS11_v2",
         "Standard_DS12_v2",
-		"Standard_DS13_v2",
+        "Standard_DS13_v2",
         "Standard_DS14_v2",
-		"Standard_G4"
-        ],
+        "Standard_G4"
+      ],
       "metadata": {
         "description": "Size of the VM"
       }
     },
-
     "DomainToJoin": {
       "type": "string",
       "metadata": {
         "description": "The FQDN of the AD domain"
       },
       "allowedValues": [
-        "PHX.GBL"
-          ]
+        "PHX.GBL",
+        "XPOE.GBL.MSIDENTITY.COM"
+      ]
     },
     "OUPath": {
       "type": "string",
@@ -121,94 +118,82 @@
         "description": "service prefix (ie mtchfd)"
       }
     },
-
     "XpertEnvName": {
       "type": "string",
-	  "defaultValue": "NA",
-       "metadata": {
+      "defaultValue": "NA",
+      "metadata": {
         "description": "Name of TWS Xpert Environment"
       }
     },
-
     "XpertRole": {
       "type": "string",
-	  "defaultValue": "NA",
+      "defaultValue": "NA",
       "metadata": {
         "description": "Xpert Role"
       }
     },
-
     "XpertServiceKey": {
       "type": "string",
-	  "defaultValue": "NA",
+      "defaultValue": "NA",
       "metadata": {
         "description": "Xpert Service Key"
       }
     },
-	
-	"MachineSubnetName": {
+    "MachineSubnetName": {
       "type": "string",
       "metadata": {
         "description": "Machine Subnet Name"
       }
     },
-	
-	"VirtualNetworkResourceGroup": {
+    "VirtualNetworkResourceGroup": {
       "type": "string",
-       "metadata": {
+      "metadata": {
         "description": "Resource Group of VNET"
       }
     },
-	
-	"VirtualNetworkName": {
+    "VirtualNetworkName": {
       "type": "string",
-       "metadata": {
+      "metadata": {
         "description": "VNET Name"
-        }
+      }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
       },
-	    
-	 "_artifactsLocation": { 
-      "type": "string", 
-      "metadata": { 
-       "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
-      }, 
-      "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
-     }
-	
-	
+      "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates"
+    }
   },
-
-	"variables": {
-	
-	"updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json')]",
-	"MachineRole": "WEB",
+  "variables": {
+    "updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/Update_Nic.json')]",
+    "MachineRole": "WEB",
     "Apiversion": "2018-10-01",
     "ComputeApiVersion": "2018-10-01",
     "NetworkApiVersion": "2018-03-01",
     "StorageApiVersion": "2018-07-01",
-	"apiVersionVMExtensions": "2015-06-15",
-		"AppNicName": "[toUpper(concat(parameters('vmName'), '-NIC'))]",
-		"domainjoinoptions": "3",
-		"ImageOffer": "WindowsServer",
-		"ImagePublisher": "MicrosoftWindowsServer",
-		"Sku": "2016-Datacenter",
-		"location": "[resourceGroup().location]",
-		"OSDiskName": "[toUpper(concat(parameters('VMName'), '-osdisk'))]",
-		"DataDiskName": "[toUpper(concat(parameters('VMName'), '-data'))]",
-		"AvailabilitySetName": "[toLower(concat(parameters('ServicePrefix'), '-as'))]",
-		"StorageAccountName": "[toLower(concat(parameters('ServicePrefix'), 'storage'))]",
-		"SubnetRef": "[concat(variables('VnetID'), '/subnets/', parameters('MachineSubnetName'))]",
-		"vnetID": "[resourceId(parameters('VirtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]"
-	},
+    "apiVersionVMExtensions": "2015-06-15",
+    "AppNicName": "[toUpper(concat(parameters('vmName'), '-NIC'))]",
+    "domainjoinoptions": "3",
+    "ImageOffer": "WindowsServer",
+    "ImagePublisher": "MicrosoftWindowsServer",
+    "Sku": "2016-Datacenter",
+    "location": "[resourceGroup().location]",
+    "OSDiskName": "[toUpper(concat(parameters('VMName'), '-osdisk'))]",
+    "DataDiskName": "[toUpper(concat(parameters('VMName'), '-data'))]",
+    "AvailabilitySetName": "[toLower(concat(parameters('ServicePrefix'), '-as'))]",
+    "StorageAccountName": "[toLower(concat(parameters('ServicePrefix'), 'storage'))]",
+    "SubnetRef": "[concat(variables('VnetID'), '/subnets/', parameters('MachineSubnetName'))]",
+    "vnetID": "[resourceId(parameters('VirtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]"
+  },
   "resources": [
-
     {
       // Backend NIC attached to VM Instance
       "name": "[variables('AppNICName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[resourceGroup().location]",
       "ApiVersion": "[variables('apiVersion')]",
-	  "tags": {
+      "tags": {
         "displayName": "NetworkInterface",
         "Platform": "TWS",
         "Environment": "PRODUCTION",
@@ -216,10 +201,7 @@
         "Service": "[parameters('ServicePrefix')]",
         "CostCenter": "UST"
       },
-      "dependsOn": [
-
-      ],
-
+      "dependsOn": [],
       "properties": {
         "ipConfigurations": [
           {
@@ -229,13 +211,11 @@
               "subnet": {
                 "id": "[variables('SubnetRef')]"
               }
-
             }
           }
         ]
       }
     },
-
     {
       // Storage Account
       "type": "Microsoft.Storage/storageAccounts",
@@ -316,7 +296,6 @@
             "storageUri": "[concat('http://', variables('StorageAccountName'),'.blob.core.windows.net')]"
           }
         },
-
         "storageProfile": {
           "imageReference": {
             "publisher": "[variables('ImagePublisher')]",
@@ -324,7 +303,6 @@
             "sku": "[variables('Sku')]",
             "version": "latest"
           },
-
           "osDisk": {
             "name": "[variables('OSDiskName')]",
             "osType": "Windows",
@@ -335,106 +313,96 @@
               "storageAccountType": "[parameters('ManagedDiskStorageType')]"
             }
           },
-		  
-            "DataDisks": [
-			
-			{
-            "name": "[concat(variables('DatadiskName'),'-D')]",
-			"lun": "0",
-            "diskSizeGB": "[parameters('Disk1-D-Drive')]",
-            "createOption": "Empty",
-            "caching": "None",
-            "managedDisk": {
-              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
-            }
+          "DataDisks": [
+            {
+              "name": "[concat(variables('DatadiskName'),'-D')]",
+              "lun": "0",
+              "diskSizeGB": "[parameters('Disk1-D-Drive')]",
+              "createOption": "Empty",
+              "caching": "None",
+              "managedDisk": {
+                "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+              }
             },
-		  
-		    {
-            "name": "[concat(variables('DatadiskName'),'-E')]",
-			"lun": "1",
-            "diskSizeGB": "[parameters('Disk2-E-Drive')]",
-            "createOption": "Empty",
-            "caching": "None",
-            "managedDisk": {
-              "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+            {
+              "name": "[concat(variables('DatadiskName'),'-E')]",
+              "lun": "1",
+              "diskSizeGB": "[parameters('Disk2-E-Drive')]",
+              "createOption": "Empty",
+              "caching": "None",
+              "managedDisk": {
+                "storageAccountType": "[parameters('ManagedDiskStorageType')]"
+              }
             }
-			}
-	   
-	  
-         ] 
+          ]
         },
-		
         "networkProfile": {
           "networkInterfaces": [
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('AppNicName'))]",
               "properties": {
                 "primary": true
-                }
               }
-            ]
-          }
+            }
+          ]
         }
-      },
-	  
-	  { 
-      "type": "Microsoft.Resources/deployments", 
-       "name": "[toUpper(concat('updateIp-',parameters('vmName')))]" , 
-       "apiVersion": "2017-08-01", 
-       "dependsOn": [ 
-         "[variables('AppNicName')]" 
-       ], 
-       "properties": { 
-         "mode": "Incremental", 
-         "templateLink": { 
-           "uri": "[variables('updateip_templateUri')]", 
-           "contentVersion": "1.0.0.0" 
-         }, 
-         "parameters": { 
-           "nicName": { 
-             "value": "[variables('AppNicName')]" 
-           }, 
-           "SubnetRef": { 
-             "value": "[variables('SubnetRef')]" 
-           }, 
-           "privateIp": { 
-             "value": "[reference(concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))).ipConfigurations[0].properties.privateIPAddress]" 
-           } 
-         } 
-       } 
-     },
-
-	  
-      {
-        "ApiVersion": "[variables('apiVersion')]",
-        "type": "Microsoft.Compute/virtualMachines/extensions",
-        "name": "[concat(parameters('VMName'),'/joindomain')]",
-        "location": "[resourceGroup().location]",
-        "dependsOn": [
-          "[concat('Microsoft.Compute/virtualMachines/', parameters('VMName'))]"
-        ],
-        "tags": {
-          "displayName": "DomainjoinScript"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "[toUpper(concat('updateIp-',parameters('vmName')))]",
+      "apiVersion": "2017-08-01",
+      "dependsOn": [
+        "[variables('AppNicName')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('updateip_templateUri')]",
+          "contentVersion": "1.0.0.0"
         },
-        "properties": {
-          "publisher": "Microsoft.Compute",
-          "type": "JsonADDomainExtension",
-          "typeHandlerVersion": "1.3",
-          "autoUpgradeMinorVersion": true,
-          "settings": {
-            "Name": "[toUpper(parameters('DomainToJoin'))]",
-            "oupath": "[ Parameters('OUPath')]",
-            "User": "[parameters('DomainUsername')]",
-            "Restart": "true",
-            "Options": "[variables('domainJoinOptions')]"
+        "parameters": {
+          "nicName": {
+            "value": "[variables('AppNicName')]"
           },
-          "protectedsettings": {
-            "Password": "[parameters('domainPassword')]"
+          "SubnetRef": {
+            "value": "[variables('SubnetRef')]"
+          },
+          "privateIp": {
+            "value": "[reference(concat('Microsoft.Network/networkInterfaces/', variables('AppNicName'))).ipConfigurations[0].properties.privateIPAddress]"
           }
         }
+      }
+    },
+    {
+      "ApiVersion": "[variables('apiVersion')]",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('VMName'),'/joindomain')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('VMName'))]"
+      ],
+      "tags": {
+        "displayName": "DomainjoinScript"
       },
-	  
-	  {
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "JsonADDomainExtension",
+        "typeHandlerVersion": "1.3",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "Name": "[toUpper(parameters('DomainToJoin'))]",
+          "oupath": "[ Parameters('OUPath')]",
+          "User": "[parameters('DomainUsername')]",
+          "Restart": "true",
+          "Options": "[variables('domainJoinOptions')]"
+        },
+        "protectedsettings": {
+          "Password": "[parameters('domainPassword')]"
+        }
+      }
+    },
+    {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmName'),'/Antimalware')]",
       "apiVersion": "2017-03-30",
@@ -442,7 +410,6 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
       ],
-
       "properties": {
         "publisher": "Microsoft.Azure.Security",
         "type": "IaaSAntimalware",
@@ -454,7 +421,6 @@
             "Paths": "D:\\IISlogs;D:\\DatabaseLogs",
             "Processes": "mssence.svc"
           },
-
           "RealtimeProtectionEnabled": "true",
           "ScheduledScanSettings": {
             "isEnabled": "true",
@@ -465,65 +431,7 @@
         },
         "protectedSettings": null
       }
-},
-
-
-
- {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-	  
-      "name": "[concat(parameters('vmName'),'/MoveAzureTempDrive')]",
-      "apiVersion": "[variables('apiVersionVMExtensions')]",
-      "location": "[resourceGroup().location]",      
-    "dependsOn": [
-         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/joindomain')]"
-		],
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.20",
-        "autoUpgradeMinorVersion": "true",
-        "settings": {
-          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
-          "wmfVersion": "latest",
-          "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
-          "properties": {
-             "TempDriveLetter" :  "Z"
-          }
-        }        
-      }
-    	},
-
-{
-    "apiVersion": "2018-06-01",
-    "type": "Microsoft.Compute/virtualMachines/extensions",
-    "name": "[concat(parameters('vmName'),'/PostDeployTasks')]",
-    "location": "[resourceGroup().location]",
-   
-    "tags": {
-        "displayName": "PostDeployTasks"
-    },
-	"dependsOn": [
-         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
-		],
-    "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.9",
-		"autoUpgradeMinorVersion": true,
-        "settings": {
-            "fileUris": [
-                "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
-
-            ]
-        },
-        "protectedSettings": {
-            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]"
-              }
     }
-}
-		
-    ],
-  "outputs": {
-  }
+  ],
+  "outputs": {}
 }
