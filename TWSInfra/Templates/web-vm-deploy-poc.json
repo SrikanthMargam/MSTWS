@@ -513,7 +513,7 @@
 		"autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                "http://10.18.91.219/PostDeploy.ps1"
+                "\\\\BY3TWSWEBUTL101\\ScriptsandExecutables\\PostDeploy.ps1"
 
             ]
         },
