@@ -484,7 +484,7 @@
         "typeHandlerVersion": "2.20",
         "autoUpgradeMinorVersion": "true",
         "settings": {
-          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
+          "modulesUrl": "http://10.18.91.219/MoveAzureTempDrive.ps1.zip",
           "wmfVersion": "latest",
           "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
           "properties": {
@@ -513,7 +513,7 @@
 		"autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                "\\\\BY3TWSWEBUTL101\\ScriptsandExecutables\\PostDeploy.ps1"
+                "http://10.18.91.219/PostDeploy.ps1"
 
             ]
         },
