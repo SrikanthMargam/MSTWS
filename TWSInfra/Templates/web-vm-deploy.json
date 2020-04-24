@@ -172,7 +172,7 @@
       "metadata": { 
        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated." 
       }, 
-      "defaultValue": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/Templates" 
+      "defaultValue": "https://raw.githubusercontent.com/SrikanthMargam/MSTWS/TWSArm/master/TWSInfra/Templates" 
      }
 	
 	
@@ -484,7 +484,7 @@
         "typeHandlerVersion": "2.20",
         "autoUpgradeMinorVersion": "true",
         "settings": {
-          "modulesUrl": "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
+          "modulesUrl": "https://raw.githubusercontent.com/SrikanthMargam/MSTWS/TWSArm/master/TWSInfra/SupportFiles/MoveAzureTempDrive.ps1.zip",
           "wmfVersion": "latest",
           "configurationFunction": "MoveAzureTempDrive.ps1\\MoveAzureTempDrive",
           "properties": {
@@ -513,7 +513,7 @@
 		"autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
+                "https://raw.githubusercontent.com/SrikanthMargam/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
 
             ]
         },
