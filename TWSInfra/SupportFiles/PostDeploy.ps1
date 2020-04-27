@@ -8,9 +8,7 @@ param (
     [string]$xpertServiceKey
 
 )
-
-$SupportFilesURL="https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/SupportFiles.zip"
-
+Write-Output "Code enter to PostDeployment script" | Out-File -FilePath "C:\WindowsAzure\Logs\MonitoringAgent.log" -Append -Force
 function Write-FileLog
 {
 param
@@ -20,6 +18,7 @@ param
 $logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.txt"
 Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
+Write-Output "Code exited to file creation script" | Out-File -FilePath "C:\WindowsAzure\Logs\MonitoringAgent.log" -Append -Force
 
 Write-FileLog("Downloading SupportFiles.Zip...")
 RoboCopy "\\BY3TWSWEBUTL101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
