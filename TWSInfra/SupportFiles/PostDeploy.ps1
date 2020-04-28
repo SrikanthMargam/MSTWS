@@ -14,14 +14,12 @@ param
 (
 [string] $message
 )
-#$logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.log"
-#Write-Output $message | Out-File -FilePath $logfilename -Append -Force
+$logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.log"
+Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
-#Write-Output "Code exited to file creation script" | Out-File -FilePath "C:\WindowsAzure\Logs\myown.log" -Append -Force
 
 Write-FileLog("Downloading SupportFiles.Zip...")
 RoboCopy "\\BY3TWSWEBUTL101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
-#$WebClient.DownloadFile($SupportFilesURL,"C:\Packages\Plugins\Supportfiles.zip")
 
 Sleep 5
 Write-FileLog("Extracting SupportFiles.Zip to C:\Packages\Plugins...")
