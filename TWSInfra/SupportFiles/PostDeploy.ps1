@@ -8,17 +8,17 @@ param (
     [string]$xpertServiceKey
 
 )
-Write-Output "Code enter to PostDeployment script" | Out-File -FilePath "C:\WindowsAzure\Logs\MonitoringAgent.log" -Append -Force
+Write-Output "Code enter to PostDeployment script" | Out-File -FilePath "C:\WindowsAzure\Logs\myown.log" -Append -Force
 function Write-FileLog
 {
 param
 (
 [string] $message
 )
-$logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.txt"
+$logfilename="C:\WindowsAzure\Logs\TWSCustomInstallLog.log"
 Write-Output $message | Out-File -FilePath $logfilename -Append -Force
 }
-Write-Output "Code exited to file creation script" | Out-File -FilePath "C:\WindowsAzure\Logs\MonitoringAgent.log" -Append -Force
+Write-Output "Code exited to file creation script" | Out-File -FilePath "C:\WindowsAzure\Logs\myown.log" -Append -Force
 
 Write-FileLog("Downloading SupportFiles.Zip...")
 RoboCopy "\\BY3TWSWEBUTL101\ScriptsandExecutables" C:\Packages\Plugins SupportFiles.zip /XN
