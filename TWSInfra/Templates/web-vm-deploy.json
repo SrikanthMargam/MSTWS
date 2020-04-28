@@ -499,13 +499,13 @@
     "type": "Microsoft.Compute/virtualMachines/extensions",
     "name": "[concat(parameters('vmName'),'/PostDeployTasks')]",
     "location": "[resourceGroup().location]",
-   
-    "tags": {
-        "displayName": "PostDeployTasks"
-    },
-	"dependsOn": [
+   "dependsOn": [
          "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
 		],
+    "tags": {
+        "displayName": "PostDeployTasksCheck"
+    },
+	
     "properties": {
         "publisher": "Microsoft.Compute",
         "type": "CustomScriptExtension",
