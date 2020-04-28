@@ -502,7 +502,7 @@
         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
       ],
       "tags": {
-        "displayName": "config-app"
+        "displayName": "PostDeployTask"
       },
       "properties": {
         "publisher": "Microsoft.Compute",
@@ -515,7 +515,7 @@
           ]
         },
         "protectedSettings": {
-          "commandToExecute": "[('powershell.exe -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]\r\n"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File PostDeploy.ps1', ', parameters('DomainUsername'), ',parameters('DomainPassword'), ',variables('MachineRole'), ',parameters('XpertEnvName'), ',parameters('XpertRole'), ',parameters('XpertServiceKey'))]",
         }
       }
     }
