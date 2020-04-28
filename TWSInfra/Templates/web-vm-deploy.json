@@ -1,4 +1,4 @@
-﻿{
+{
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
   "parameters": {
@@ -492,36 +492,7 @@
           }
         }        
       }
-    	},
-
-{
-    "apiVersion": "2018-06-01",
-    "type": "Microsoft.Compute/virtualMachines/extensions",
-    "name": "[concat(parameters('vmName'),'/PostDeployTasksCheck')]",
-    "location": "[resourceGroup().location]",
-   "dependsOn": [
-         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
-		],
-    "tags": {
-        "displayName": "PostDeployTasksCheck"
-    },
-	
-    "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.10",
-		"autoUpgradeMinorVersion": true,
-        "settings": {
-            "fileUris": [
-                "https://raw.githubusercontent.com/SrikanthMargam/MSTWS/master/TWSInfra/SupportFiles/sample.ps1"
-
-            ]
-        },
-        "protectedSettings": {
-             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ',parameters('DomainUsername'),parameters('DomainPassword'),variables('MachineRole'),parameters('XpertEnvName'),parameters('XpertRole'),parameters('XpertServiceKey'))]"
-              }
-    }
-}
+    	}
 		
     ],
   "outputs": {
