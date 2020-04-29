@@ -494,34 +494,32 @@
       }
     	},
 
-{
-    "apiVersion": "2018-06-01",
-    "type": "Microsoft.Compute/virtualMachines/extensions",
-    "name": "[concat(parameters('vmName'),'/PostDeployTasks')]",
-    "location": "[resourceGroup().location]",
-   
-    "tags": {
-        "displayName": "PostDeployTasks"
-    },
-	"dependsOn": [
-         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
-		],
-    "properties": {
+  {
+      "apiVersion": "2018-06-01",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/PostDeployTasks')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/MoveAzureTempDrive')]"
+      ],
+      "tags": {
+        "displayName": "PostDeployTask"
+      },
+      "properties": {
         "publisher": "Microsoft.Compute",
         "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.9",
-		"autoUpgradeMinorVersion": true,
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
         "settings": {
-            "fileUris": [
-                "https://raw.githubusercontent.com/MSTWS/TWSArm/master/TWSInfra/SupportFiles/PostDeploy.ps1"
-
-            ]
+          "fileUris": [
+            "https://raw.githubusercontent.com/SrikanthMargam/MSTWS/master/TWSInfra/SupportFiles/PostDeploy.ps1"
+          ]
         },
         "protectedSettings": {
-            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]"
-              }
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File PostDeploy.ps1', ', parameters('DomainUsername'), ',parameters('DomainPassword'), ',variables('MachineRole'), ',parameters('XpertEnvName'), ',parameters('XpertRole'), ',parameters('XpertServiceKey'))]"
+        }
+      }
     }
-}
 		
     ],
   "outputs": {
