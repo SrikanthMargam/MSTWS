@@ -517,7 +517,7 @@
             ]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]"
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File PostDeploy.ps1 ', ' ', parameters('DomainUsername'), ' ', parameters('DomainPassword'), ' ', variables('MachineRole'), ' ', parameters('XpertEnvName'), ' ', parameters('XpertRole'), ' ', parameters('XpertServiceKey'))]"
               }
     }
 }
